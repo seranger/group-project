@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import LoginPage from './LoginPage.vue';
+import LoginPage from './Employee.vue';
 export default {
-   name:'LoginPage',
+   name:'LoginComp',
    comments:{
     LoginPage
    } 

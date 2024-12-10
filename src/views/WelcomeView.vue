@@ -1,5 +1,8 @@
 <template>
-  <div class="home">
+  <div class="Welcome">
+    <nav>
+  <router-link to="/">Home</router-link>
+</nav> 
     <login-comp/>
   </div>
 </template>
@@ -9,7 +12,7 @@
 import LoginComp from '@/components/LoginComp.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'WelcomView',
   components: {
     LoginComp
   }
