@@ -7,7 +7,7 @@ import Home from '@/components/Home.vue'
 
 const routes = [
   {
-    path: '/WelcomeView',
+    path: '/welcomeView',
     name: 'WelcomeView',
     component: Welcome
   },

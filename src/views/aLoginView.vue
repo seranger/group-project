@@ -4,7 +4,7 @@
 <script>
 import Admin from '@/components/Admin.vue';
 export default {
-name:'eLoginView',
+name:'aLoginView',
 components:{
     Admin,
 },

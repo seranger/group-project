@@ -4,8 +4,9 @@
         <h1 class="title">ModernTech Solutions</h1>
         <p class="description">Streamline HR processes</p>
         <div class="button-group">
-            <button class="btn btn-admin">Administrator</button>
-            <button class="btn btn-employee">Employee</button>
+          <router-link to ="/aloginview"><button class="btn btn-admin">Administrator</button></router-link>
+          <router-link to ="/eloginview"><button class="btn btn-employee">Employee</button></router-link>
+  
         </div>
         <p class="footer">© 2024 HR Management System. All rights reserved.</p>
     </div>
@@ -16,10 +17,10 @@
 <script>
 import eLoginView from '@/views/eLoginView.vue';
 export default {
-   name:'LoginComp',
+   name:'WelcomeComp',
    components:{
     eLoginView,
-   } 
+   }
 }
 </script>
 

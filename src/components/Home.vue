@@ -19,10 +19,9 @@
             <!-- Header -->
             <header>
                 <div class="user-profile">
-                    <img src="https://via.placeholder.com/40" alt="Profile" />
+                    <img src="https://images.pexels.com/photos/14634926/pexels-photo-14634926.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Profile"  width="40px"/>
                     <span>Gavano (Administrator)</span>
                 </div>
-                <input type="text" placeholder="Search..." class="search-bar" />
                 <button class="notification">🔔</button>
             </header>
 
@@ -56,49 +55,87 @@
 
             <!-- Employee Status -->
             <section class="employee-status">
-                <h2>Employee Status</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Employee ID</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Department</th>
-                            <th>Salary</th>
-                            <th>History</th>
-                            <th>Contact</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Sibongile Nkosi</td>
-                            <td>Software Engineer</td>
-                            <td>Development</td>
-                            <td>R70000</td>
-                            <td>Joined in 2015, promoted to Senior in 2018</td>
-                            <td>sibongile.nkosi@moderntech.com</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Lungile Moyo</td>
-                            <td>HR Manager</td>
-                            <td>HR</td>
-                            <td>R80000</td>
-                            <td>Joined in 2013, promoted to Manager in 2017</td>
-                            <td>lungile.moyo@moderntech.com</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Thabo Molefe</td>
-                            <td>Quality Analyst</td>
-                            <td>QA</td>
-                            <td>R55000</td>
-                            <td>Joined in 2018</td>
-                            <td>thabo.molefe@moderntech.com</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h2>Employee Data</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Salary</th>
+                                <th>History</th>
+                                <th>Contact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Sibongile Nkosi</td>
+                                <td>Software Engineer</td>
+                                <td>Development</td>
+                                <td>R70000</td>
+                                <td>Joined in 2015, promoted to Senior in 2018</td>
+                                <td>sibongile.nkosi@moderntech.com</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Lungile Moyo</td>
+                                <td>HR Manager</td>
+                                <td>HR</td>
+                                <td>R80000</td>
+                                <td>Joined in 2013, promoted to Manager in 2017</td>
+                                <td>lungile.moyo@moderntech.com</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Thabo Molefe</td>
+                                <td>Quality Analyst</td>
+                                <td>QA</td>
+                                <td>R55000</td>
+                                <td>Joined in 2018</td>
+                                <td>thabo.molefe@moderntech.com</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Thabo Molefe</td>
+                                <td>Quality Analyst</td>
+                                <td>QA</td>
+                                <td>R55000</td>
+                                <td>Joined in 2018</td>
+                                <td>thabo.molefe@moderntech.com</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Thabo Molefe</td>
+                                <td>Quality Analyst</td>
+                                <td>QA</td>
+                                <td>R55000</td>
+                                <td>Joined in 2018</td>
+                                <td>thabo.molefe@moderntech.com</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Thabo Molefe</td>
+                                <td>Quality Analyst</td>
+                                <td>QA</td>
+                                <td>R55000</td>
+                                <td>Joined in 2018</td>
+                                <td>thabo.molefe@moderntech.com</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Thabo Molefe</td>
+                                <td>Quality Analyst</td>
+                                <td>QA</td>
+                                <td>R55000</td>
+                                <td>Joined in 2018</td>
+                                <td>thabo.molefe@moderntech.com</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
             <!-- Employee Composition -->
@@ -107,7 +144,7 @@
                 <div class="chart">
                     <p>Pie Chart Placeholder</p>
                 </div>
-                <p>856 employee total</p>
+
             </section>
         </main>
     </div>
@@ -122,12 +159,14 @@ export default {
 <style>
 #dashboard {
     display: flex;
+    background-color: #d3d3d3;
 }
 
 .sidebar {
     width: 250px;
-    background: #f5f5f5;
+    background: #333;
     padding: 20px;
+    color: white;
 }
 
 .sidebar .brand {
@@ -139,20 +178,47 @@ export default {
 .sidebar ul {
     list-style: none;
     padding: 0;
+
 }
 
 .sidebar ul li {
     margin-bottom: 10px;
+
 }
 
 .sidebar ul li a {
     text-decoration: none;
     color: #333;
+    color: white;
 }
 
 .sidebar ul li a.active {
     font-weight: bold;
+
     color: #007bff;
+}
+
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;  
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+th {
+    background-color: #f2f2f2;
 }
 
 main {
@@ -199,7 +265,7 @@ header {
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px #0000001a;
 }
 
 .card .growth {
