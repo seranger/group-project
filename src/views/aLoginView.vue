@@ -1,11 +1,14 @@
 <template>
-    <div>
-        
-    </div>
+    <Admin/>
 </template>
 <script>
+import Admin from '@/components/Admin.vue';
 export default {
-    
+name:'eLoginView',
+components:{
+    Admin,
+},
+
 }
 </script>
 <style>

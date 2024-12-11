@@ -1,19 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import WelcomeView from '../views/WelcomeView.vue'
-import eLoginView from '@/views/eLoginView.vue'
+import Welcome from '../views/WelcomeView.vue'
+import Employee from '@/views/eLoginView.vue'
+import Admin from '@/components/Admin.vue'
 
 
 const routes = [
   {
-    path: '/Welcome',
+    path: '/WelcomeView',
     name: 'WelcomeView',
-    component: WelcomeView
+    component: Welcome
   },
   {
-    path: '/Employee',
+    path: '/eLoginView',
     name: 'eLoginView',
-    component: eLoginView
+    component: Employee
   },
+  {
+    path: '/aLoginView',
+    name: 'aLoginView',
+    component: Admin
+  }
   
   
 ]

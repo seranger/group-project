@@ -1,6 +1,5 @@
 <template>
-    
-        <Employee/>
+  <Employee/>
 </template>
 <script>
 import Employee from '@/components/Employee.vue';
