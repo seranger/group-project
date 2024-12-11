@@ -1,20 +1,19 @@
 <template>
   <div class="Welcome">
-    <nav>
-  <router-link to="/">Home</router-link>
-</nav> 
-    <login-comp/>
+    <Welcome/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import LoginComp from '@/components/LoginComp.vue'
+
+import Welcome from '@/components/Welcome.vue';
 
 export default {
   name: 'WelcomView',
   components: {
-    LoginComp
+    Welcome,
+    
   }
 }
 </script>

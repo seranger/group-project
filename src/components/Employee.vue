@@ -1,7 +1,8 @@
 <template >
   <div id="login-form" class="login-container">
-    <h2>Employee</h2>
+    
     <form>
+      <h2 class="title">Employee</h2>
       <div class="input-group">
         <input type="text" v-model="employeeId" placeholder="Enter ID" required/>
       </div>
@@ -17,21 +18,35 @@
 
 <script>
 export default {
-    
+name: 'EmployeeComp' 
 }
 </script>
 
 <style>
 
 .login-container {
-  width: 300px;
-  margin: 0 auto;
-  text-align: center;
-  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #d3d3d3;
 }
 
-h2 {
-  margin-bottom: 20px;
+form {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px #0000001a;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 1rem;
 }
 
 .input-group {

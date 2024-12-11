@@ -10,14 +10,15 @@
         <p class="footer">© 2024 HR Management System. All rights reserved.</p>
     </div>
     </div>
+    <ELoginView/>
 </template>
 
 <script>
-import LoginPage from './Employee.vue';
+import eLoginView from '@/views/eLoginView.vue';
 export default {
    name:'LoginComp',
-   comments:{
-    LoginPage
+   components:{
+    eLoginView,
    } 
 }
 </script>
