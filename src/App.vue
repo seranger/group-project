@@ -3,6 +3,7 @@
   <router-link to="/WelcomeView">Welcome</router-link>
   <router-link to ="/eloginview">Employee</router-link>
   <router-link to ="/aloginview">Administrator</router-link>
+  <router-link to ="/HomeView">Home</router-link>
   
   
 </nav> 
