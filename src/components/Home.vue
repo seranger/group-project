@@ -2,7 +2,12 @@
     <div id="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="brand">MTech Solutions</div>
+            <div>
+                <span>
+                    <img src="../assets/MTech.jpg" alt="" class="logo">
+                     <div class="brand">MTech Solutions</div> 
+                </span> 
+            </div>
             <ul>
                 <li><a href="#" class="active">Dashboard</a></li>
                 <li><a href="#">Finance</a></li>
@@ -281,6 +286,8 @@ header {
     border-radius: 50%;
     margin-right: 10px;
     width: 50px;
+    height: 50px;
+    align-items: center;
 }
 
 .search-bar {
@@ -346,4 +353,10 @@ table td {
     border: 1px solid #ccc;
     text-align: left;
 }
+.logo{
+    height: 50px;
+    width: 50px;
+    align-items: center;
+    border-radius: 50%;
+  }
 </style>

@@ -1,6 +1,7 @@
 <template>
     <div class="app-container">
     <div class="card">
+        <img src="../assets/MTech.jpg" alt="Logo" class="Wel-logo">
         <h1 class="title">ModernTech Solutions</h1>
         <p class="description">Streamline HR processes</p>
         <div class="button-group">
@@ -86,5 +87,13 @@ export default {
 .footer {
   font-size: 0.875rem;
   color: #aaaaaa;
+}
+
+.Wel-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  align-items: center;
+  
 }
 </style>
