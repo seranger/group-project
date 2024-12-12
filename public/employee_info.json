@@ -1,5 +1,5 @@
-{
-    "employeeInformation": [
+
+     [
         {
             "employeeId": 1,
             "name": "Sibongile Nkosi",
@@ -91,4 +91,3 @@
             "contact": "fatima.patel@moderntech.com"
         }
     ]
-}

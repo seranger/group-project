@@ -16,10 +16,10 @@
 
         <!-- Main Content -->
         <main>
-            <!-- Header -->
             <header>
                 <div class="user-profile">
-                    <img src="https://images.pexels.com/photos/14634926/pexels-photo-14634926.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Profile"  width="40px"/>
+                    <img src="https://resilienteducator.com/wp-content/uploads/2012/10/educational-supervisor.jpg"
+                        alt="Profile" />
                     <span>Gavano (Administrator)</span>
                 </div>
                 <button class="notification">🔔</button>
@@ -49,7 +49,7 @@
             <section class="job-statistics">
                 <h2>Job Statistics</h2>
                 <div class="chart">
-                    <p>Bar Chart Placeholder</p>
+                    <canvas id="jobStatsChart"></canvas>
                 </div>
             </section>
 
@@ -57,7 +57,7 @@
             <section class="employee-status">
                 <h2>Employee Data</h2>
                 <div class="table-container">
-                    <table>
+                    <table v-if="employeeInformation.length > 0">
                         <thead>
                             <tr>
                                 <th>Employee ID</th>
@@ -70,68 +70,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Sibongile Nkosi</td>
-                                <td>Software Engineer</td>
-                                <td>Development</td>
-                                <td>R70000</td>
-                                <td>Joined in 2015, promoted to Senior in 2018</td>
-                                <td>sibongile.nkosi@moderntech.com</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Lungile Moyo</td>
-                                <td>HR Manager</td>
-                                <td>HR</td>
-                                <td>R80000</td>
-                                <td>Joined in 2013, promoted to Manager in 2017</td>
-                                <td>lungile.moyo@moderntech.com</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Thabo Molefe</td>
-                                <td>Quality Analyst</td>
-                                <td>QA</td>
-                                <td>R55000</td>
-                                <td>Joined in 2018</td>
-                                <td>thabo.molefe@moderntech.com</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Thabo Molefe</td>
-                                <td>Quality Analyst</td>
-                                <td>QA</td>
-                                <td>R55000</td>
-                                <td>Joined in 2018</td>
-                                <td>thabo.molefe@moderntech.com</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Thabo Molefe</td>
-                                <td>Quality Analyst</td>
-                                <td>QA</td>
-                                <td>R55000</td>
-                                <td>Joined in 2018</td>
-                                <td>thabo.molefe@moderntech.com</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Thabo Molefe</td>
-                                <td>Quality Analyst</td>
-                                <td>QA</td>
-                                <td>R55000</td>
-                                <td>Joined in 2018</td>
-                                <td>thabo.molefe@moderntech.com</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Thabo Molefe</td>
-                                <td>Quality Analyst</td>
-                                <td>QA</td>
-                                <td>R55000</td>
-                                <td>Joined in 2018</td>
-                                <td>thabo.molefe@moderntech.com</td>
+                            <tr v-for="employee in employeeInformation" :key="employee.employeeId">
+                                <td>{{ employee.employeeId }}</td>
+                                <td>{{ employee.name }}</td>
+                                <td>{{ employee.position }}</td>
+                                <td>{{ employee.department }}</td>
+                                <td>{{ employee.salary }}</td>
+                                <td>{{ employee.employmentHistory }}</td>
+                                <td>{{ employee.contact }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -142,17 +88,114 @@
             <section class="employee-composition">
                 <h2>Employee Composition</h2>
                 <div class="chart">
-                    <p>Pie Chart Placeholder</p>
+                    <canvas id="employeeCompositionChart"></canvas>
                 </div>
-
             </section>
         </main>
     </div>
 </template>
 
 <script>
+
+import Chart from "chart.js/auto";
+
 export default {
     name: "HomeComp",
+    data() {
+        return {
+            employeeInformation: [],
+        };
+    },
+    created() {
+        fetch("employee_info.json")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed!");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                this.employeeInformation = data;
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    },
+    mounted() {
+        // Job Statistics Chart
+        const jobStatsData = {
+            labels: ["Engineering", "Design", "Marketing", "Sales", "HR"],
+            datasets: [
+                {
+                    label: "Jobs Posted",
+                    data: [50, 30, 40, 25, 15],
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                    ],
+                    borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                    ],
+                    borderWidth: 1,
+                },
+            ],
+        };
+        const jobStatsOptions = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+            },
+        };
+        const jobStatsCtx = document.getElementById("jobStatsChart").getContext("2d");
+        new Chart(jobStatsCtx, {
+            type: "bar",
+            data: jobStatsData,
+            options: jobStatsOptions,
+        });
+
+        // Employee Composition Pie Chart
+        const employeeCompositionData = {
+            labels: ["Engineering", "HR", "Design", "Marketing", "Sales"],
+            datasets: [
+                {
+                    label: "Employee Composition",
+                    data: [30, 10, 25, 20, 15],
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.6)",
+                        "rgba(54, 162, 235, 0.6)",
+                        "rgba(255, 206, 86, 0.6)",
+                        "rgba(75, 192, 192, 0.6)",
+                        "rgba(153, 102, 255, 0.6)",
+                    ],
+                },
+            ],
+        };
+        const employeeCompositionOptions = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+            },
+        };
+        const employeeCompositionCtx = document
+            .getElementById("employeeCompositionChart")
+            .getContext("2d");
+        new Chart(employeeCompositionCtx, {
+            type: "pie",
+            data: employeeCompositionData,
+            options: employeeCompositionOptions,
+        });
+    },
 };
 </script>
 
@@ -178,12 +221,10 @@ export default {
 .sidebar ul {
     list-style: none;
     padding: 0;
-
 }
 
 .sidebar ul li {
     margin-bottom: 10px;
-
 }
 
 .sidebar ul li a {
@@ -194,7 +235,6 @@ export default {
 
 .sidebar ul li a.active {
     font-weight: bold;
-
     color: #007bff;
 }
 
@@ -206,7 +246,7 @@ export default {
 
 table {
     width: 100%;
-    border-collapse: collapse;  
+    border-collapse: collapse;
 }
 
 th,
@@ -214,7 +254,6 @@ td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    
 }
 
 th {
@@ -241,6 +280,7 @@ header {
 .user-profile img {
     border-radius: 50%;
     margin-right: 10px;
+    width: 50px;
 }
 
 .search-bar {
@@ -263,7 +303,7 @@ header {
 
 .card {
     background: #fff;
-    padding: 20px;
+    padding: 0px;
     border-radius: 5px;
     box-shadow: 0 2px 4px #0000001a;
 }
@@ -288,7 +328,7 @@ header {
 
 .chart {
     background: #f9f9f9;
-    height: 200px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
