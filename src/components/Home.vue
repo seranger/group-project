@@ -1,21 +1,66 @@
 <template>
-    <div id="dashboard">
+    <div id="dashboard" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div>
+            <div class="sidebar-header">
                 <span>
                     <img src="../assets/MTech.jpg" alt="" class="logo">
                      <div class="brand">MTech Solutions</div> 
-                </span> 
+                </span>
+                <button class="toggle-btn" @click="toggleSidebar">
+                    {{ isSidebarCollapsed ? '>' : '<' }}
+                </button>
             </div>
-            <ul>
-                <li><a href="#" class="active">Dashboard</a></li>
-                <li><a href="#">Finance</a></li>
-                <li><a href="#">Employees</a></li>
-                <li><a href="#">Company</a></li>
-                <li><a href="#">Calendar</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Setting</a></li>
+            <ul v-if="!isSidebarCollapsed">
+                <li>
+                    <box-icon name='dashboard' type='solid' rotate='180' color='#ffffff' ></box-icon>
+                    <router-link 
+                        to="/HomeView" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/HomeView') }">Dashboard</router-link>
+                </li>
+                <li>
+                    <box-icon name='money' color='#ffffff'></box-icon>
+                    <router-link 
+                        to="/WorkersView" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/WorkersView') }">Finance</router-link>
+                </li>
+                <li>
+                    <box-icon type='solid' name='briefcase'></box-icon>
+                    <router-link 
+                        to="/" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/') }">Employees</router-link>
+                </li>
+                <li>
+                    <box-icon type='solid' name='business'></box-icon>
+                    <router-link 
+                        to="/" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/') }">Company</router-link>
+                </li>
+                <li>
+                    <box-icon type='solid' name='calendar'></box-icon>
+                    <router-link 
+                        to="/" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/') }">Calendar</router-link>
+                </li>
+                <li>
+                    <box-icon name='user-circle'></box-icon>
+                    <router-link 
+                        to="/" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/') }">Profile</router-link>
+                </li>
+                <li>
+                    <box-icon name='cog'></box-icon>
+                    <router-link 
+                        to="/" 
+                        class="nav-link" 
+                        :class="{ active: isActive('/') }">Settings</router-link>
+                </li>
             </ul>
         </aside>
 
@@ -104,12 +149,22 @@
 
 import Chart from "chart.js/auto";
 
+
 export default {
     name: "HomeComp",
     data() {
         return {
             employeeInformation: [],
+            isSidebarCollapsed: true
         };
+    },
+    methods: {
+        toggleSidebar() {
+            this.isSidebarCollapsed = !this.isSidebarCollapsed;
+        },
+        isActive(route) {
+            return this.$route.path === route;
+        }
     },
     created() {
         fetch("employee_info.json")
@@ -208,6 +263,7 @@ export default {
 #dashboard {
     display: flex;
     background-color: #d3d3d3;
+    transition: all 0.3s ease;
 }
 
 .sidebar {
@@ -215,6 +271,25 @@ export default {
     background: #333;
     padding: 20px;
     color: white;
+    height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.sidebar-collapsed .sidebar  {
+    width: 30px;
+}
+
+.sidebar-collapsed main {
+    margin-left: 0px;
+}
+
+.toggle-btn {
+    background: blueviolet;
+    border: solid 1px white;
+    color: white;
+    border-radius: 4px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 .sidebar .brand {
@@ -229,7 +304,27 @@ export default {
 }
 
 .sidebar ul li {
-    margin-bottom: 10px;
+    margin: 10px ;
+}
+
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.icon {
+  margin-right: 8px;
+  align-items: center;
+}
+
+.nav-link:hover {
+    background-color: #34495e;
 }
 
 .sidebar ul li a {
@@ -240,7 +335,7 @@ export default {
 
 .sidebar ul li a.active {
     font-weight: bold;
-    color: #007bff;
+    background-color: #007bff;
 }
 
 .table-container {
