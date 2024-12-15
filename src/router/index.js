@@ -30,7 +30,8 @@ const routes = [
   {
     path: '/WorkersView',
     name: 'WorkersView',
-    component: WorkersView
+    component: WorkersView,
+    meta: { showNavigation: true }
 
   }
   

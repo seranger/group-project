@@ -5,61 +5,25 @@
             <div class="sidebar-header">
                 <span>
                     <img src="../assets/MTech.jpg" alt="" class="logo">
-                     <div class="brand">MTech Solutions</div> 
+                     <div class="brand" v-if="!isSidebarCollapsed">MTech Solutions</div> 
                 </span>
                 <button class="toggle-btn" @click="toggleSidebar">
-                    {{ isSidebarCollapsed ? '>' : '<' }}
+                    <box-icon 
+                        :name="isSidebarCollapsed ? 'menu' : 'x'" 
+                        :rotate="isSidebarCollapsed ? '0' : '90'">
+                    </box-icon>  
                 </button>
             </div>
-            <ul v-if="!isSidebarCollapsed">
-                <li>
-                    <box-icon name='dashboard' type='solid' rotate='180' color='#ffffff' ></box-icon>
+            <ul>
+                <li v-for="menu in menus" :key="menu.name">
+                    <box-icon :name="menu.icon" color="#ffffff"></box-icon>
                     <router-link 
-                        to="/HomeView" 
+                        v-if="!isSidebarCollapsed"
+                        :to="menu.route"
                         class="nav-link" 
-                        :class="{ active: isActive('/HomeView') }">Dashboard</router-link>
-                </li>
-                <li>
-                    <box-icon name='money' color='#ffffff'></box-icon>
-                    <router-link 
-                        to="/WorkersView" 
-                        class="nav-link" 
-                        :class="{ active: isActive('/WorkersView') }">Finance</router-link>
-                </li>
-                <li>
-                    <box-icon type='solid' name='briefcase'></box-icon>
-                    <router-link 
-                        to="/" 
-                        class="nav-link" 
-                        :class="{ active: isActive('/') }">Employees</router-link>
-                </li>
-                <li>
-                    <box-icon type='solid' name='business'></box-icon>
-                    <router-link 
-                        to="/" 
-                        class="nav-link" 
-                        :class="{ active: isActive('/') }">Company</router-link>
-                </li>
-                <li>
-                    <box-icon type='solid' name='calendar'></box-icon>
-                    <router-link 
-                        to="/" 
-                        class="nav-link" 
-                        :class="{ active: isActive('/') }">Calendar</router-link>
-                </li>
-                <li>
-                    <box-icon name='user-circle'></box-icon>
-                    <router-link 
-                        to="/" 
-                        class="nav-link" 
-                        :class="{ active: isActive('/') }">Profile</router-link>
-                </li>
-                <li>
-                    <box-icon name='cog'></box-icon>
-                    <router-link 
-                        to="/" 
-                        class="nav-link" 
-                        :class="{ active: isActive('/') }">Settings</router-link>
+                        :class="{ active: isActive(menu.route) }">
+                        {{ menu.name }}
+                    </router-link>
                 </li>
             </ul>
         </aside>
@@ -155,7 +119,16 @@ export default {
     data() {
         return {
             employeeInformation: [],
-            isSidebarCollapsed: true
+            isSidebarCollapsed: true,
+            menus: [
+                { name: "Dashboard", icon: "dashboard", route: "/HomeView" },
+                { name: "Finance", icon: "money", route: "/WorkersView" },
+                { name: "Employees", icon: "briefcase", route: "/" },
+                { name: "Company", icon: "buildings", route: "/" },
+                { name: "Calendar", icon: "calendar", route: "/" },
+                { name: "Profile", icon: "user-circle", route: "/" },
+                { name: "Settings", icon: "cog", route: "/" },
+            ],
         };
     },
     methods: {
@@ -266,36 +239,42 @@ export default {
     transition: all 0.3s ease;
 }
 
-.sidebar {
-    width: 250px;
-    background: #333;
-    padding: 20px;
-    color: white;
-    height: 100vh;
-    transition: all 0.3s ease;
-}
-
-.sidebar-collapsed .sidebar  {
-    width: 30px;
-}
-
-.sidebar-collapsed main {
-    margin-left: 0px;
-}
-
-.toggle-btn {
-    background: blueviolet;
-    border: solid 1px white;
-    color: white;
-    border-radius: 4px;
-    font-size: 30px;
-    cursor: pointer;
+.logo{
+    width: 3rem;
+    align-items: center;
+    border-radius: 50%;
 }
 
 .sidebar .brand {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: (2rem + 32px);
+    background: #333;
+    padding: 1rem;
+    color: white;
+    min-height: 100vh;
+    transition:  0.2s ease-out;
+}
+
+.sidebar-collapsed .sidebar  {
+    width: 50px;
+}
+
+.toggle-btn {
+    background: #007bff;
+    border: solid 1px white;
+    margin-top: 30px;
+    border-radius: 4px;
+    display: flex;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .sidebar ul {
@@ -305,6 +284,10 @@ export default {
 
 .sidebar ul li {
     margin: 10px ;
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 
@@ -312,23 +295,31 @@ export default {
     text-decoration: none;
     color: white;
     padding: 10px;
-    display: inline-flex;
     align-items: center;
+    justify-content: center;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    
 }
 
 .icon {
-  margin-right: 8px;
-  align-items: center;
+    width: 4rem;
+    height: 3.5rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-link:hover {
-    background-color: #34495e;
+    background-color: #ffce00;
+    color: black;
+    font-weight: bold;
 }
 
 .sidebar ul li a {
-    text-decoration: none;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
     color: #333;
     color: white;
 }
@@ -385,10 +376,6 @@ header {
     align-items: center;
 }
 
-.search-bar {
-    width: 300px;
-    padding: 5px;
-}
 
 .notification {
     background: none;
@@ -448,10 +435,5 @@ table td {
     border: 1px solid #ccc;
     text-align: left;
 }
-.logo{
-    height: 50px;
-    width: 50px;
-    align-items: center;
-    border-radius: 50%;
-  }
+
 </style>
