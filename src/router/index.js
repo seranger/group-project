@@ -1,25 +1,36 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Welcome from '../views/WelcomeView.vue'
-import Employee from '@/views/eLoginView.vue'
+import Welcome from '@/components/Welcome.vue'
+import Employee from '@/components/Employee.vue'
 import Admin from '@/components/Admin.vue'
 import Home from '@/components/Home.vue'
+import SidebarLayout from '@/components/SidebarLayout.vue'
 import WorkersView from '@/views/WorkersView.vue'
+import HomeView from '@/views/HomeView.vue'
 
 
 const routes = [
+  {
+    path: '/SidebarLayout',
+    component: SidebarLayout,
+    children: [
+      { path: '/WorkersView', component: WorkersView },
+      { path: '/HomeView', component: HomeView },
+      { path: '/', component: Welcome },
+    ],
+  },
   {
     path: '/welcomeView',
     name: 'WelcomeView',
     component: Welcome
   },
   {
-    path: '/eLoginView',
-    name: 'eLoginView',
+    path: '/LoginView',
+    name: 'LoginView',
     component: Employee
   },
   {
-    path: '/aLoginView',
-    name: 'aLoginView',
+    path: '/LoginView',
+    name: 'LoginView',
     component: Admin
   },
   {
@@ -30,8 +41,7 @@ const routes = [
   {
     path: '/WorkersView',
     name: 'WorkersView',
-    component: WorkersView,
-    meta: { showNavigation: true }
+    component: WorkersView
 
   }
   

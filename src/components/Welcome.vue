@@ -1,32 +1,35 @@
 <template>
-    <div class="app-container">
+  <div class="app-container">
     <div class="card">
-        <img src="../assets/MTech.jpg" alt="Logo" class="Wel-logo">
-        <h1 class="title">ModernTech Solutions</h1>
-        <p class="description">Streamline HR processes</p>
-        <div class="button-group">
-          <router-link to ="/aloginview"><button class="btn btn-admin">Administrator</button></router-link>
-          <router-link to ="/eloginview"><button class="btn btn-employee">Employee</button></router-link>
-  
-        </div>
-        <p class="footer">© 2024 HR Management System. All rights reserved.</p>
+      <img src="../assets/MTech.jpg" alt="Logo" class="Wel-logo" />
+      <h1 class="title">ModernTech Solutions</h1>
+      <p class="description">Streamline HR processes</p>
+      <div class="button-group">
+        <button class="btn btn-admin" @click="switchToAdmin">Administrator</button>
+
+        <button class="btn btn-employee" @click="switchToEmployee">Employee</button>
+      </div>
+      <p class="footer">© 2024 HR Management System. All rights reserved.</p>
     </div>
-    </div>
-    <ELoginView/>
+  </div>
+  <LoginView />
 </template>
 
 <script>
-import eLoginView from '@/views/eLoginView.vue';
 export default {
-   name:'WelcomeComp',
-   components:{
-    eLoginView,
-   }
-}
+  name: "WelcomeComp",
+  methods: {
+    switchToAdmin() {
+      this.$emit("switchView", "Admin"); // Emit event to parent
+    },
+    switchToEmployee() {
+      this.$emit("switchView", "Employee"); // Emit event to parent
+    },
+  },
+};
 </script>
 
 <style>
- 
 .app-container {
   display: flex;
   align-items: center;
@@ -57,7 +60,6 @@ export default {
   color: #666666;
   margin-bottom: 1.5rem;
 }
-
 
 .button-group {
   display: flex;
@@ -94,6 +96,5 @@ export default {
   height: 100px;
   border-radius: 50%;
   align-items: center;
-  
 }
 </style>

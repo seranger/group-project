@@ -1,41 +1,15 @@
-
 <template>
-  <div id="Payroll" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
-    <aside class="sidebar" v-if="showNavigation">
-      <div class="sidebar-header">
-                <span>
-                    <img src="../assets/MTech.jpg" alt="" class="logo">
-                     <div class="brand" v-if="!isSidebarCollapsed">MTech Solutions</div> 
-                </span>
-                <button class="toggle-btn" @click="toggleSidebar">
-                    <box-icon 
-                        :name="isSidebarCollapsed ? 'menu' : 'x'" 
-                        :rotate="isSidebarCollapsed ? '0' : '90'">
-                    </box-icon>  
-                </button>
-            </div>
-            <ul>
-                <li v-for="menu in menus" :key="menu.name">
-                    <box-icon :name="menu.icon" color="#ffffff"></box-icon>
-                    <router-link 
-                        v-if="!isSidebarCollapsed"
-                        :to="menu.route"
-                        class="nav-link" 
-                        :class="{ active: isActive(menu.route) }">
-                        {{ menu.name }}
-                    </router-link>
-                </li>
-            </ul>
-    </aside>
-
-    <h1> Employee Payroll</h1>
+  <div>
+    <h1>Employee Payroll</h1>
     <div class="grid-container">
       <div class="grid-item" v-for="employee in payrollData" :key="employee.employeeId">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title"> {{ employee.name }}</h3>
+            <h3 class="card-title">{{ employee.name }}</h3>
             <p class="card-text">Employee ID: {{ employee.employeeId }}</p>
-            <button class="btn btn-primary" @click="showPayslip(employee)">Produce Payslip</button>
+            <button class="btn btn-primary" @click="showPayslip(employee)">
+              Produce Payslip
+            </button>
           </div>
         </div>
       </div>
@@ -45,32 +19,59 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title"><strong>Payslip: {{ selectedEmployee.name }}</strong></h1>
+            <h1 class="modal-title">
+              <strong>Payslip: {{ selectedEmployee.name }}</strong>
+            </h1>
             <div>
               <p>Date: 12 December 2024</p>
             </div>
-            <button type="button" class="btn-close" @click="selectedEmployee = false" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              @click="selectedEmployee = false"
+              aria-label="Close"
+            ></button>
           </div>
-          <div class="card" style="width: 24rem;">
+          <div class="card" style="width: 24rem">
             <!-- Card Body with Title -->
             <div class="card-body">
               <h5 class="card-title">{{ selectedEmployee.name }}</h5>
             </div>
             <!-- List Group for Detailed Information -->
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><strong>Department:</strong> {{ selectedEmployee.department }}</li>
-              <li class="list-group-item"><strong>Position:</strong> {{ selectedEmployee.position }}</li>
-              <li class="list-group-item"><strong>Employee ID:</strong> {{ selectedEmployee.employeeId }}</li>
-              <li class="list-group-item"><strong>Hours Worked:</strong> {{ selectedEmployee.hoursWorked }}</li>
-              <li class="list-group-item"><strong>Leave Deductions:</strong> {{ selectedEmployee.leaveDeductions }}</li>
-              <li class="list-group-item"><strong>Employment History:</strong> {{ selectedEmployee.employmentHistory }}
+              <li class="list-group-item">
+                <strong>Department:</strong> {{ selectedEmployee.department }}
               </li>
-              <li class="list-group-item"><strong>Email:</strong> {{ selectedEmployee.contact }}</li>
-              <li class="list-group-item"><strong>Salary:</strong> R{{ selectedEmployee.finalSalary }}</li>
+              <li class="list-group-item">
+                <strong>Position:</strong> {{ selectedEmployee.position }}
+              </li>
+              <li class="list-group-item">
+                <strong>Employee ID:</strong> {{ selectedEmployee.employeeId }}
+              </li>
+              <li class="list-group-item">
+                <strong>Hours Worked:</strong> {{ selectedEmployee.hoursWorked }}
+              </li>
+              <li class="list-group-item">
+                <strong>Leave Deductions:</strong> {{ selectedEmployee.leaveDeductions }}
+              </li>
+              <li class="list-group-item">
+                <strong>Employment History:</strong>
+                {{ selectedEmployee.employmentHistory }}
+              </li>
+              <li class="list-group-item">
+                <strong>Email:</strong> {{ selectedEmployee.contact }}
+              </li>
+              <li class="list-group-item">
+                <strong>Salary:</strong> R{{ selectedEmployee.finalSalary }}
+              </li>
             </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="selectedEmployee = false">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="selectedEmployee = false"
+            >
               Close
             </button>
           </div>
@@ -81,22 +82,9 @@
 </template>
 
 <script>
-
 export default {
-
   data() {
     return {
-      showNavigation: true,
-      isSidebarCollapsed: true,
-            menus: [
-                { name: "Dashboard", icon: "dashboard", route: "/HomeView" },
-                { name: "Finance", icon: "money", route: "/WorkersView" },
-                { name: "Employees", icon: "briefcase", route: "/" },
-                { name: "Company", icon: "buildings", route: "/" },
-                { name: "Calendar", icon: "calendar", route: "/" },
-                { name: "Profile", icon: "user-circle", route: "/" },
-                { name: "Settings", icon: "cog", route: "/" },
-            ],
       selectedEmployee: false, // Holds the data for the employee whose payslip is shown
       payrollData: [
         {
@@ -108,7 +96,7 @@ export default {
           position: "Software Engineer",
           department: "Development",
           employmentHistory: "Joined in 2015, promoted to Senior in 2018",
-          contact: "sibongile.nkosi@moderntech.com"
+          contact: "sibongile.nkosi@moderntech.com",
         },
         {
           employeeId: 2,
@@ -120,7 +108,7 @@ export default {
           department: "HR",
           salary: 80000,
           employmentHistory: "Joined in 2013, promoted to Manager in 2017",
-          contact: "lungile.moyo@moderntech.com"
+          contact: "lungile.moyo@moderntech.com",
         },
         {
           employeeId: 3,
@@ -132,7 +120,7 @@ export default {
           department: "QA",
           salary: 55000,
           employmentHistory: "Joined in 2018",
-          contact: "thabo.molefe@moderntech.com"
+          contact: "thabo.molefe@moderntech.com",
         },
         {
           employeeId: 4,
@@ -144,7 +132,7 @@ export default {
           department: "Sales",
           salary: 60000,
           employmentHistory: "Joined in 2020",
-          contact: "keshav.naidoo@moderntech.com"
+          contact: "keshav.naidoo@moderntech.com",
         },
         {
           employeeId: 5,
@@ -156,7 +144,7 @@ export default {
           department: "Marketing",
           salary: 58000,
           employmentHistory: "Joined in 2019",
-          contact: "zanele.khumalo@moderntech.com"
+          contact: "zanele.khumalo@moderntech.com",
         },
         {
           employeeId: 6,
@@ -168,7 +156,7 @@ export default {
           department: "Design",
           salary: 65000,
           employmentHistory: "Joined in 2016",
-          contact: "sipho.zulu@moderntech.com"
+          contact: "sipho.zulu@moderntech.com",
         },
         {
           employeeId: 7,
@@ -180,7 +168,7 @@ export default {
           department: "IT",
           salary: 72000,
           employmentHistory: "Joined in 2017",
-          contact: "naledi.moeketsi@moderntech.com"
+          contact: "naledi.moeketsi@moderntech.com",
         },
         {
           employeeId: 8,
@@ -192,7 +180,7 @@ export default {
           department: "Marketing",
           salary: 56000,
           employmentHistory: "Joined in 2021",
-          contact: "farai.gumbo@moderntech.com"
+          contact: "farai.gumbo@moderntech.com",
         },
         {
           employeeId: 9,
@@ -204,7 +192,7 @@ export default {
           department: "Finance",
           salary: 62000,
           employmentHistory: "Joined in 2018",
-          contact: "karabo.dlamini@moderntech.com"
+          contact: "karabo.dlamini@moderntech.com",
         },
         {
           employeeId: 10,
@@ -216,7 +204,7 @@ export default {
           department: "Support",
           salary: 58000,
           employmentHistory: "Joined in 2016",
-          contact: "fatima.patel@moderntech.com"
+          contact: "fatima.patel@moderntech.com",
         },
       ],
     };
@@ -225,18 +213,11 @@ export default {
     showPayslip(employee) {
       this.selectedEmployee = employee; // Set the selected employee for the modal
     },
-    toggleSidebar() {
-            this.isSidebarCollapsed = !this.isSidebarCollapsed;
-        },
-        isActive(route) {
-            return this.$route.path === route;
-        }
   },
 };
 </script>
 
 <style>
-
 .card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -305,7 +286,7 @@ export default {
 }
 
 .modal-body .table th {
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
   /* Light gray background for table headers */
   font-weight: bold;
   /* Make header text bold */
@@ -364,7 +345,7 @@ caption {
 
 .card-body {
   padding: 16px;
-  color: gray
+  color: gray;
 }
 
 .card-title {
@@ -387,14 +368,15 @@ caption {
   font-size: 14px;
   padding: 8px 12px;
   color: #fff;
-  background-color: #007BFF;
+  background-color: #007bff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .btn:hover {
-  background-color: #0056B3;
+  background-color: greenyellow;
+  color: #000;
 }
 
 /*   */
@@ -430,7 +412,7 @@ caption {
 
 /* Modal Header */
 .modal-header {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: white;
   padding: 15px;
   display: flex;
@@ -476,7 +458,7 @@ caption {
   border: none;
   font-size: 1rem;
   padding: 10px 15px;
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   border-bottom: 1px solid #ddd;
 }
 
@@ -485,7 +467,7 @@ caption {
 }
 
 .list-group-item strong {
-  color: #007BFF;
+  color: #007bff;
 }
 
 /* Modal Footer */
@@ -493,12 +475,12 @@ caption {
   padding: 10px 20px;
   display: flex;
   justify-content: flex-end;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
 }
 
 .modal-footer .btn-secondary {
-  background-color: #007BFF;
-  border-color: #007BFF;
+  background-color: #007bff;
+  border-color: #007bff;
   color: white;
   padding: 6px 12px;
   font-size: 1rem;

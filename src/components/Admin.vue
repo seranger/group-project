@@ -1,13 +1,12 @@
 <template>
-    <div id="login-form" class="login-container">
-    
+  <div id="login-form" class="login-container">
     <form>
       <h2 class="title">Administrator</h2>
       <div class="input-group">
-        <input type="text" v-model="employeeId" placeholder="Enter username" required/>
+        <input type="text" v-model="employeeId" placeholder="Enter username" required />
       </div>
       <div class="input-group">
-      <input type="password" v-model="password" placeholder="Enter password" required/>
+        <input type="password" v-model="password" placeholder="Enter password" required />
       </div>
       <button type="submit" class="login-button">Login</button>
       <a href="#" class="forgot-password">Forgot Password?</a>
@@ -16,12 +15,11 @@
 </template>
 <script>
 export default {
-   name: 'AdminComp' 
-}
+  name: "AdminComp",
+};
 </script>
 
 <style>
-
 .login-container {
   display: flex;
   align-items: center;
