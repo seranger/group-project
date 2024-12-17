@@ -68,6 +68,7 @@ export default {
 <style>
 .layout-with-sidebar {
   display: flex;
+  height: 100vh;
 }
 
 .content {
