@@ -1,5 +1,5 @@
-{
-    "payrollData": [
+
+     [
         {
             "employeeId": 1,
             "hoursWorked": 160,
@@ -61,4 +61,3 @@
             "finalSalary": 57750
         }
     ]
-}

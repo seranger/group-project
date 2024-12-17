@@ -8,6 +8,7 @@
                         <h3 class="card-title">{{ employee.name }}</h3>
                         <p class="card-text">Employee ID: {{ employee.employeeId }}</p>
                         <p>Hours-Working: {{ employee.hoursWorked }}</p>
+                        <p>Leave-Deduction: {{ employee.leaveDeductions }}%</p>
                         <p>Department: {{ employee.department }}</p>
                         <button class="btn btn-primary" @click="showPayslip(employee)">
                             Produce Payslip
@@ -16,7 +17,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Modal -->
         <div class="modal" tabindex="-1" v-show="selectedEmployee">
             <div class="modal-dialog">
@@ -30,15 +31,20 @@
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><strong>Employee:</strong> {{ selectedEmployee.name }}</li>
-                                <li class="list-group-item"><strong>Position:</strong> {{ selectedEmployee.position }}</li>
-                                <li class="list-group-item"><strong>Monthly Salary:</strong> R{{ calculateMonthlySalary(selectedEmployee.hoursWorked) }}</li>
-                                <li class="list-group-item"><strong>Final Salary:</strong> R{{ calculateAnnualSalary(selectedEmployee.hoursWorked) }}</li>
-                                <li class="list-group-item"><strong>Contact:</strong> {{ selectedEmployee.contact }}</li>
+                                <li class="list-group-item"><strong>Position:</strong> {{ selectedEmployee.position }}
+                                </li>
+                                <li class="list-group-item"><strong>Monthly Salary:</strong>
+                                    R{{ selectedEmployee.finalSalary }}</li>
+                                <li class="list-group-item"><strong>Annual Salary:</strong> R{{
+                                    calculateAnnualSalary(selectedEmployee.hoursWorked) }}</li>
+                                <li class="list-group-item"><strong>Salary After Deduction:</strong> {{
+                                    salaryAfterDeduction(selectedEmployee) }}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" @click="downloadPayslip(selectedEmployee)">Download Payslip</button>
+                        <button class="btn btn-success" @click="downloadPayslip(selectedEmployee)">Download
+                            Payslip</button>
                         <button class="btn btn-secondary" @click="selectedEmployee = false">Close</button>
                     </div>
                 </div>
@@ -49,6 +55,7 @@
 
 <script>
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default {
     data() {
@@ -107,25 +114,49 @@ export default {
         calculateAnnualSalary(hoursWorked) {
             return this.calculateMonthlySalary(hoursWorked) * 12;
         },
+        salaryAfterDeduction(employee) {
+            const deductionAmount = (employee.leaveDeductions / 100) * this.calculateMonthlySalary(employee.hoursWorked);
+            return this.calculateMonthlySalary(employee.hoursWorked) - deductionAmount;
+        },
         showPayslip(employee) {
             this.selectedEmployee = employee; // Set the selected employee for the modal
         },
-        downloadPayslip(employee) {
-            const doc = new jsPDF();
-            doc.text("Employee Payslip", 20, 20);
-            doc.text(`Name: ${employee.name}`, 20, 40);
-            doc.text(`Position: ${employee.position}`, 20, 50);
-            doc.text(`Monthly Salary: R${this.calculateMonthlySalary(employee.hoursWorked)}`, 20, 60);
-            doc.text(`Annual Salary: R${this.calculateAnnualSalary(employee.hoursWorked)}`, 20, 70);
-            doc.text(`Contact: ${employee.contact}`, 20, 80);
-            doc.save(`${employee.name}-payslip.pdf`);
-        },
+
+        // Download payslip as PDF
+    downloadPayslip(employee) {
+      const doc = new jsPDF();
+
+      // Title
+      doc.text("Employee Payslip", 20, 20);
+
+      // Table Headers and Data
+      const headers = [["Description", "Amount"]];
+      const data = [
+        ["Name", employee.name],
+        ["Position", employee.position],
+        ["Monthly Salary", `R${this.calculateMonthlySalary(employee.hoursWorked)}`],
+        ["Annual Salary", `R${this.calculateAnnualSalary(employee.hoursWorked)}`],
+        ["Leave Deduction Percentage", `${employee.leaveDeductions}%`],
+        ["Salary After Deduction", `R${this.salaryAfterDeduction(employee)}`],
+      ];
+
+      // Add table to PDF
+      doc.autoTable({
+        head: headers,
+        body: data,
+        startY: 30, // Adjust table position
+        theme: "grid", // Optional: Use 'grid', 'striped', etc.
+      });
+
+      // Save PDF file
+      doc.save(`${employee.name}-payslip.pdf`);
     },
-};
+  },
+  };
+        
 </script>
 
 <style>
-
 h1 {
     text-align: center;
 
