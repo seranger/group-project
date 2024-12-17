@@ -49,9 +49,7 @@ export default {
         { name: "Finance", icon: "money", route: "/WorkersView" },
         { name: "Employees", icon: "briefcase", route: "/" },
         { name: "Company", icon: "buildings", route: "/" },
-        { name: "Calendar", icon: "calendar", route: "/" },
-        { name: "Profile", icon: "user-circle", route: "/" },
-        { name: "Settings", icon: "cog", route: "/" },
+        { name: "Log-Out", icon: "log-out", route: "/" },
       ],
     };
   },

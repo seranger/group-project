@@ -6,6 +6,7 @@ import Home from '@/components/Home.vue'
 import SidebarLayout from '@/components/SidebarLayout.vue'
 import WorkersView from '@/views/WorkersView.vue'
 import HomeView from '@/views/HomeView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 
 const routes = [
@@ -43,7 +44,14 @@ const routes = [
     name: 'WorkersView',
     component: WorkersView
 
+  },
+  {
+    path: '/ProfileView',
+    name: 'ProfileView',
+    component: ProfileView
+
   }
+  
   
 ]
 
