@@ -2,11 +2,13 @@
     <div>
         <h1>Employee Payroll</h1>
         <div class="grid-container">
-            <div class="grid-item" v-for="employee in payrollData" :key="employee.employeeId">
+            <div class="grid-item" v-for="employee in combinedData" :key="employee.employeeId">
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">{{ employee.name }}</h3>
                         <p class="card-text">Employee ID: {{ employee.employeeId }}</p>
+                        <p>Hours-Working: {{ employee.hoursWorked }}</p>
+                        <p>Department: {{ employee.department }}</p>
                         <button class="btn btn-primary" @click="showPayslip(employee)">
                             Produce Payslip
                         </button>
@@ -14,58 +16,30 @@
                 </div>
             </div>
         </div>
+        
         <!-- Modal -->
         <div class="modal" tabindex="-1" v-show="selectedEmployee">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title">
-                            <strong>Payslip: {{ selectedEmployee.name }}</strong>
-                        </h1>
-                        <div>
-                            <p>Date: 12 December 2024</p>
-                        </div>
+                        <h1 class="modal-title"><strong>Payslip: {{ selectedEmployee.name }}</strong></h1>
                         <button type="button" class="btn-close" @click="selectedEmployee = false"
                             aria-label="Close"></button>
                     </div>
                     <div class="card" style="width: 24rem">
-                        <!-- Card Body with Title -->
                         <div class="card-body">
-                            <h5 class="card-title">{{ selectedEmployee.name }}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Employee:</strong> {{ selectedEmployee.name }}</li>
+                                <li class="list-group-item"><strong>Position:</strong> {{ selectedEmployee.position }}</li>
+                                <li class="list-group-item"><strong>Monthly Salary:</strong> R{{ calculateMonthlySalary(selectedEmployee.hoursWorked) }}</li>
+                                <li class="list-group-item"><strong>Final Salary:</strong> R{{ calculateAnnualSalary(selectedEmployee.hoursWorked) }}</li>
+                                <li class="list-group-item"><strong>Contact:</strong> {{ selectedEmployee.contact }}</li>
+                            </ul>
                         </div>
-                        <!-- List Group for Detailed Information -->
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <strong>Department:</strong> {{ selectedEmployee.department }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Position:</strong> {{ selectedEmployee.position }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Employee ID:</strong> {{ selectedEmployee.employeeId }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Hours Worked:</strong> {{ selectedEmployee.hoursWorked }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Leave Deductions:</strong> {{ selectedEmployee.leaveDeductions }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Employment History:</strong>
-                                {{ selectedEmployee.employmentHistory }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Email:</strong> {{ selectedEmployee.contact }}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Salary:</strong> R{{ selectedEmployee.finalSalary }}
-                            </li>
-                        </ul>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="selectedEmployee = false">
-                            Close
-                        </button>
+                        <button class="btn btn-success" @click="downloadPayslip(selectedEmployee)">Download Payslip</button>
+                        <button class="btn btn-secondary" @click="selectedEmployee = false">Close</button>
                     </div>
                 </div>
             </div>
@@ -74,152 +48,87 @@
 </template>
 
 <script>
+import jsPDF from "jspdf";
+
 export default {
     data() {
         return {
-            selectedEmployee: false, // Holds the data for the employee whose payslip is shown
-            payrollData: [
-                {
-                    employeeId: 1,
-                    hoursWorked: 160,
-                    leaveDeductions: 8,
-                    finalSalary: 69500,
-                    name: "Sibongile Nkosi",
-                    position: "Software Engineer",
-                    department: "Development",
-                    employmentHistory: "Joined in 2015, promoted to Senior in 2018",
-                    contact: "sibongile.nkosi@moderntech.com",
-                },
-                {
-                    employeeId: 2,
-                    hoursWorked: 150,
-                    leaveDeductions: 10,
-                    finalSalary: 79000,
-                    name: "Lungile Moyo",
-                    position: "HR Manager",
-                    department: "HR",
-                    salary: 80000,
-                    employmentHistory: "Joined in 2013, promoted to Manager in 2017",
-                    contact: "lungile.moyo@moderntech.com",
-                },
-                {
-                    employeeId: 3,
-                    hoursWorked: 170,
-                    leaveDeductions: 4,
-                    finalSalary: 54800,
-                    name: "Thabo Molefe",
-                    position: "Quality Analyst",
-                    department: "QA",
-                    salary: 55000,
-                    employmentHistory: "Joined in 2018",
-                    contact: "thabo.molefe@moderntech.com",
-                },
-                {
-                    employeeId: 4,
-                    hoursWorked: 165,
-                    leaveDeductions: 6,
-                    finalSalary: 59700,
-                    name: "Keshav Naidoo",
-                    position: "Sales Representative",
-                    department: "Sales",
-                    salary: 60000,
-                    employmentHistory: "Joined in 2020",
-                    contact: "keshav.naidoo@moderntech.com",
-                },
-                {
-                    employeeId: 5,
-                    hoursWorked: 158,
-                    leaveDeductions: 5,
-                    finalSalary: 57850,
-                    name: "Zanele Khumalo",
-                    position: "Marketing Specialist",
-                    department: "Marketing",
-                    salary: 58000,
-                    employmentHistory: "Joined in 2019",
-                    contact: "zanele.khumalo@moderntech.com",
-                },
-                {
-                    employeeId: 6,
-                    hoursWorked: 168,
-                    leaveDeductions: 2,
-                    finalSalary: 64800,
-                    name: "Sipho Zulu",
-                    position: "UI/UX Designer",
-                    department: "Design",
-                    salary: 65000,
-                    employmentHistory: "Joined in 2016",
-                    contact: "sipho.zulu@moderntech.com",
-                },
-                {
-                    employeeId: 7,
-                    hoursWorked: 175,
-                    leaveDeductions: 3,
-                    finalSalary: 71800,
-                    name: "Naledi Moeketsi",
-                    position: "DevOps Engineer",
-                    department: "IT",
-                    salary: 72000,
-                    employmentHistory: "Joined in 2017",
-                    contact: "naledi.moeketsi@moderntech.com",
-                },
-                {
-                    employeeId: 8,
-                    hoursWorked: 160,
-                    leaveDeductions: 0,
-                    finalSalary: 56000,
-                    name: "Farai Gumbo",
-                    position: "Content Strategist",
-                    department: "Marketing",
-                    salary: 56000,
-                    employmentHistory: "Joined in 2021",
-                    contact: "farai.gumbo@moderntech.com",
-                },
-                {
-                    employeeId: 9,
-                    hoursWorked: 155,
-                    leaveDeductions: 5,
-                    finalSalary: 61500,
-                    name: "Karabo Dlamini",
-                    position: "Accountant",
-                    department: "Finance",
-                    salary: 62000,
-                    employmentHistory: "Joined in 2018",
-                    contact: "karabo.dlamini@moderntech.com",
-                },
-                {
-                    employeeId: 10,
-                    hoursWorked: 162,
-                    leaveDeductions: 4,
-                    finalSalary: 57750,
-                    name: "Fatima Patel",
-                    position: "Customer Support Lead",
-                    department: "Support",
-                    salary: 58000,
-                    employmentHistory: "Joined in 2016",
-                    contact: "fatima.patel@moderntech.com",
-                },
-            ],
+            selectedEmployee: false,
+            payrollData: [],  // Holds the data for the employee whose payslip is shown
+            employeeInformation: [],
+            combinedData: [], // This will hold merged data
+            hourlyRate: 300, // hourly rate for calculations
         };
     },
+    created() {
+        this.fetchData();
+    },
     methods: {
+        async fetchData() {
+            try {
+                // Fetch both files in parallel
+                const [payrollResponse, employeeResponse] = await Promise.all([
+                    fetch("/Data/payroll_data.json"),
+                    fetch("/Data/employee_info.json"),
+                ]);
+
+                if (!payrollResponse.ok || !employeeResponse.ok) {
+                    throw new Error("Error fetching data");
+                }
+
+                // Parse responses
+                const payrollData = await payrollResponse.json();
+                const employeeInfo = await employeeResponse.json();
+
+                // Merge the two datasets based on employeeId
+                this.combinedData = this.mergeData(payrollData, employeeInfo);
+
+                console.log("Merged Data: ", this.combinedData); // Check merged data in console
+            } catch (error) {
+                console.error("Error loading data:", error.message);
+            }
+        },
+        mergeData(payroll, employee) {
+            // Combine data from both JSON files
+            return payroll.map((payrollItem) => {
+                const employeeInfo = employee.find(
+                    (employee) => employee.employeeId === payrollItem.employeeId
+                );
+                if (!employeeInfo) {
+                    console.warn(`No matching employee for ID ${payrollItem.employeeId}`);
+                    return payrollItem; // Return partial data if no match is found
+                }
+                return { ...payrollItem, ...employeeInfo };
+            });
+        },
+        calculateMonthlySalary(hoursWorked) {
+            return this.hourlyRate * hoursWorked;
+        },
+        calculateAnnualSalary(hoursWorked) {
+            return this.calculateMonthlySalary(hoursWorked) * 12;
+        },
         showPayslip(employee) {
             this.selectedEmployee = employee; // Set the selected employee for the modal
+        },
+        downloadPayslip(employee) {
+            const doc = new jsPDF();
+            doc.text("Employee Payslip", 20, 20);
+            doc.text(`Name: ${employee.name}`, 20, 40);
+            doc.text(`Position: ${employee.position}`, 20, 50);
+            doc.text(`Monthly Salary: R${this.calculateMonthlySalary(employee.hoursWorked)}`, 20, 60);
+            doc.text(`Annual Salary: R${this.calculateAnnualSalary(employee.hoursWorked)}`, 20, 70);
+            doc.text(`Contact: ${employee.contact}`, 20, 80);
+            doc.save(`${employee.name}-payslip.pdf`);
         },
     },
 };
 </script>
 
-
 <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
 
 h1 {
     text-align: center;
-    
+
 }
 
 .card {
