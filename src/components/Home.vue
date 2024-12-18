@@ -5,10 +5,10 @@
       <header>
         <div class="user-profile">
           <img
-            src="https://resilienteducator.com/wp-content/uploads/2012/10/educational-supervisor.jpg"
+            src="https://ca.slack-edge.com/T02LW4RMXJQ-U07Q3KG4K0D-710193470838-512"
             alt="Profile"
           />
-          <span>Gavano (Administrator)</span>
+          <span>Sinovuyo (Administrator)</span>
         </div>
         <button class="notification">🔔</button>
       </header>
@@ -17,7 +17,7 @@
       <section class="stats-cards">
         <div class="card">
           <h3>Total Employees</h3>
-          <p>856 <span class="growth up">+10.0%</span></p>
+          <p>250 <span class="growth up">+800%</span></p>
         </div>
         <div class="card">
           <h3>Job View</h3>
@@ -94,7 +94,7 @@ export default {
     };
   },
   created() {
-    fetch("employee_info.json")
+    fetch("/Data/employee_info.json")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed!");
@@ -186,7 +186,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #dashboard {
   display: flex;
   background-color: #d3d3d3;
@@ -265,6 +265,7 @@ header {
   background: #fff;
   padding: 0px;
   border-radius: 5px;
+  text-align: center;
   box-shadow: 0 2px 4px #0000001a;
 }
 

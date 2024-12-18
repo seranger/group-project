@@ -45,11 +45,11 @@ export default {
     return {
       isSidebarCollapsed: true,
       menus: [
-        { name: "Dashboard", icon: "dashboard", route: "/HomeView" },
+        { name: "Dashboard", icon: "dashboard", route: "/Home" },
         { name: "Finance", icon: "money", route: "/WorkersView" },
         { name: "Employees", icon: "briefcase", route: "/" },
         { name: "Company", icon: "buildings", route: "/" },
-        { name: "Log-Out", icon: "log-out", route: "/" },
+        { name: "Log-Out", icon: "log-out", route: "/Welcome" },
       ],
     };
   },
@@ -63,7 +63,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .layout-with-sidebar {
   display: flex;
   height: 100vh;
@@ -122,6 +122,7 @@ export default {
 .sidebar ul li {
   margin: 10px;
   display: grid;
+  margin-top: 60px;
   grid-template-columns: 4rem 1fr;
   cursor: pointer;
   overflow: hidden;

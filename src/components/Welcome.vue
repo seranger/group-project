@@ -12,7 +12,6 @@
       <p class="footer">© 2024 HR Management System. All rights reserved.</p>
     </div>
   </div>
-  <LoginView />
 </template>
 
 <script>
@@ -20,16 +19,18 @@ export default {
   name: "WelcomeComp",
   methods: {
     switchToAdmin() {
-      this.$emit("switchView", "Admin"); // Emit event to parent
+      // Navigate to the admin login route
+      this.$router.push({ path: "/Admin" });
     },
     switchToEmployee() {
-      this.$emit("switchView", "Employee"); // Emit event to parent
+      // Navigate to the employee login route
+      this.$router.push({ path: "/Employee" });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .app-container {
   display: flex;
   align-items: center;

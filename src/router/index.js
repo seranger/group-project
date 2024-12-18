@@ -5,8 +5,8 @@ import Admin from '@/components/Admin.vue'
 import Home from '@/components/Home.vue'
 import SidebarLayout from '@/components/SidebarLayout.vue'
 import WorkersView from '@/views/WorkersView.vue'
-import HomeView from '@/views/HomeView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import RequestView from '@/views/RequestView.vue'
 
 
 const routes = [
@@ -15,28 +15,28 @@ const routes = [
     component: SidebarLayout,
     children: [
       { path: '/WorkersView', component: WorkersView },
-      { path: '/HomeView', component: HomeView },
+      { path: '/Home', component: Home },
       { path: '/', component: Welcome },
     ],
   },
   {
-    path: '/welcomeView',
-    name: 'WelcomeView',
+    path: '/welcome',
+    name: 'Welcome',
     component: Welcome
   },
   {
-    path: '/LoginView',
-    name: 'LoginView',
+    path: '/Employee',
+    name: 'Employee',
     component: Employee
   },
   {
-    path: '/LoginView',
-    name: 'LoginView',
+    path: '/Admin',
+    name: 'Admin',
     component: Admin
   },
   {
-    path: '/HomeView',
-    name: 'HomeView',
+    path: '/Home',
+    name: 'Home',
     component: Home
   },
   {
@@ -49,6 +49,12 @@ const routes = [
     path: '/ProfileView',
     name: 'ProfileView',
     component: ProfileView
+
+  },
+  {
+    path: '/RequestView',
+    name: 'RequestView',
+    component: RequestView
 
   }
   

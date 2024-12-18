@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <!-- Main Content -->
         <div class="main">
             <div class="profile">
                 <div class="forms-container">
@@ -27,6 +26,7 @@
                                 <option>Annual Leave</option>
                                 <option>Sick Leave</option>
                                 <option>Casual Leave</option>
+                                <option>Marternity Leave</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -47,31 +47,9 @@
                         </button>
                     </form>
                 </div>
-
-                <!-- Attendance Section -->
-                <div class="attendance-section">
-                    <h2>Track Attendance</h2>
-                    <table class="attendance-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Check-In</th>
-                                <th>Check-Out</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="record in attendanceRecords" :key="record.date">
-                                <td>{{ record.date }}</td>
-                                <td>{{ record.status }}</td>
-                                <td>{{ record.checkIn }}</td>
-                                <td>{{ record.checkOut }}</td>
-                            </tr>
-                            <tr v-if="attendanceRecords.length === 0">
-                                <td colspan="4" class="no-data">No attendance records available.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- Logout Button -->
+                <div class="logout-container">
+                    <button type="button" class="logout-btn" @click="logout">Logout</button>
                 </div>
             </div>
         </div>
@@ -82,7 +60,6 @@
 export default {
     data() {
         return {
-            userProfile: "path/to/profile/image.jpg",
             fullName: "",
             email: "",
             number: "",
@@ -91,16 +68,11 @@ export default {
             leaveStart: "",
             leaveEnd: "",
             leaveReason: "",
-            attendanceRecords: [
-                { date: "2024-06-01", status: "Present", checkIn: "08:30 AM", checkOut: "05:00 PM" },
-                { date: "2024-06-02", status: "Absent", checkIn: "-", checkOut: "-" },
-                { date: "2024-06-03", status: "Present", checkIn: "08:45 AM", checkOut: "05:10 PM" },
-            ],
             formFields: [
-                { label: "Full Name", type: "text", placeholder: "Enter your full name"},
-                { label: "Email", type: "email", placeholder: "Enter your email"},
-                { label: "Phone Number", type: "text", placeholder: "Enter your phone number"},
-                { label: "Address", type: "text", placeholder: "Enter your address"},
+                { id: "full-name", label: "Full Name", type: "text", placeholder: "Full Name" },
+                { id: "email", label: "Email", type: "email", placeholder: "Email" },
+                { id: "phone-number", label: "Phone Number", type: "text", placeholder: "Phone Number" },
+                { id: "address", label: "Address", type: "text", placeholder: "Home Address" },
             ],
         };
     },
@@ -121,77 +93,100 @@ export default {
                 leaveReason: this.leaveReason,
             });
         },
+        logout() {
+            this.$router.push("/Welcome");
+        },
     },
 };
 </script>
 
-<style>
-
+<style scoped>
 .container {
     display: flex;
     min-height: 100vh;
     background-color: #f9f9f9;
     font-family: Arial, sans-serif;
+    justify-content: center;
+    align-items: center;
 }
-
 
 /* Main Content */
 .main {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
     flex: 1;
-    padding: 40px;
+    padding: 20px;
     background-color: #ddd;
+    height: 100vh;
+    overflow: auto;
 }
 
-h2 {
-    margin-bottom: 15px;
-    color: #333;
-}
-
-/* Forms Container */
+/* Forms Container: Displays the forms side by side */
 .forms-container {
     display: flex;
-    gap: 6px;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
 }
 
+/* Form styles */
 .profile-form,
 .leave-form {
     flex: 1;
-    padding: 20px;
+    padding: 30px;
     background: white;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    max-width: 450px;
+    width: 100%;
 }
 
+/* Heading styles */
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Form Group */
 .form-group {
     margin-bottom: 15px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
-    text-align: left;
+    margin-bottom: 8px;
+    color: #333;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     box-sizing: border-box;
+    font-size: 1rem;
 }
 
 /* Buttons */
 .update-btn,
 .log-request-btn {
     background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
+    color: white;
+    padding: 12px 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    width: 100%;
+    margin-top: 20px;
     transition: background 0.3s;
 }
 
@@ -200,25 +195,27 @@ h2 {
     background-color: #28a745;
 }
 
-/* Attendance Table */
-.attendance-section {
+/* Logout Button Styling */
+.logout-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     margin-top: 30px;
 }
 
-.attendance-table {
-    width: 100%;
-    border-collapse: collapse;
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 200px; /* Optional: set a specific width */
+    transition: background 0.3s;
 }
 
-.attendance-table th,
-.attendance-table td {
-    border: 1px solid #000000;
-    padding: 10px;
-    background: #ffffff;
-    text-align: center;
-}
-
-.attendance-table th {
-    background-color: #f4f4f4;
+.logout-btn:hover {
+    background-color: #c82333;
 }
 </style>
