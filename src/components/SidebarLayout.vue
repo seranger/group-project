@@ -47,7 +47,7 @@ export default {
       menus: [
         { name: "Dashboard", icon: "dashboard", route: "/Home" },
         { name: "Finance", icon: "money", route: "/WorkersView" },
-        { name: "Employees", icon: "briefcase", route: "/" },
+        { name: "Employees", icon: "briefcase", route: "/RequestView" },
         { name: "Company", icon: "buildings", route: "/" },
         { name: "Log-Out", icon: "log-out", route: "/Welcome" },
       ],

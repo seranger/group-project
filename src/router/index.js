@@ -16,7 +16,8 @@ const routes = [
     children: [
       { path: '/WorkersView', component: WorkersView },
       { path: '/Home', component: Home },
-      { path: '/', component: Welcome },
+      { path: '/RequestView', component: RequestView },
+      { path: '/', component: RequestView },
     ],
   },
   {

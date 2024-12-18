@@ -1,23 +1,38 @@
 <template>
-    <div class="employee-dashboard">
+    <div class="employee-attendance">
         <h1>Employee Dashboard</h1>
 
         <!-- Attendance and Performance Overview -->
         <div class="overview">
             <div class="attendance-tracker">
                 <h2>Attendance</h2>
-                <div class="calendar">
-                    <p>Calendar view of employee attendance</p>
-                    <!-- You can integrate a library like Vue Cal or Vuetify Calendar here -->
+                <div class="scrollable-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr 
+                                v-for="(entry, index) in attendanceEntries" 
+                                :key="index"
+                                :class="{'present': entry.status === 'Present', 'absent': entry.status === 'Absent'}"
+                            >
+                                <td>{{ entry.employeeName }}</td>
+                                <td>{{ entry.date }}</td>
+                                <td>{{ entry.status }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <div class="performance-tracker">
                 <h2>Attendance Overview</h2>
-                <div class="metrics">
-                    <p>Bar chart or metrics visualization here</p>
-                    <!-- You can integrate a chart library like Chart.js for performance stats -->
-                </div>
+                <canvas id="attendanceChart"></canvas>
             </div>
         </div>
 
@@ -38,10 +53,21 @@
                         <td>{{ request.employeeName }}</td>
                         <td>{{ request.date }}</td>
                         <td>{{ request.reason }}</td>
-                        <td>{{ request.status }}</td>
                         <td>
-                            <button v-if="request.status === 'Pending'" @click="approveLeave(request)">Approve</button>
-                            <button v-if="request.status === 'Pending'" @click="denyLeave(request)">Deny</button>
+                            <button 
+                                v-if="request.status === 'Pending'" 
+                                @click="approveLeave(request)" 
+                                class="approve-btn"
+                            >
+                                Approve
+                            </button>
+                            <button 
+                                v-if="request.status === 'Pending'" 
+                                @click="denyLeave(request)" 
+                                class="deny-btn"
+                            >
+                                Deny
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -51,32 +77,44 @@
 </template>
 
 <script>
+// Import Chart.js library
+import { Chart } from 'chart.js';
+
 export default {
     name: 'EmployeeAttendance',
     data() {
         return {
-            // Leave request data
-            rawata:[],
+            rawData: [],  // Fixed typo (rawata -> rawData)
+            attendanceEntries: [],
             leaveRequests: [],
         };
     },
     methods: {
         async fetchData() {
             try {
-                // Fetch the JSON file
                 const response = await fetch("/Data/attendance.json");
                 if (!response.ok) {
                     throw new Error("Error Fetching Data");
                 }
                 const data = await response.json();
                 this.rawData = data.attendanceAndLeave;
+                this.extractAttendanceData();
                 this.extractLeaveRequests();
             } catch (error) {
                 console.error("Failed to load data:", error);
             }
         },
+        extractAttendanceData() {
+            this.attendanceEntries = this.rawData.flatMap((employee) =>
+                employee.attendance.map((record) => ({
+                    employeeId: employee.employeeId,
+                    employeeName: employee.name,
+                    ...record
+                }))
+            );
+            this.generateBarChart();
+        },
         extractLeaveRequests() {
-            // Flatten the leave requests into a single array
             this.leaveRequests = this.rawData.flatMap((employee) =>
                 employee.leaveRequests.map((leave) => ({
                     employeeId: employee.employeeId,
@@ -90,18 +128,46 @@ export default {
         },
         denyLeave(request) {
             request.status = "Denied";
+        },
+        generateBarChart() {
+            const presentCount = this.attendanceEntries.filter(entry => entry.status === 'Present').length;
+            const absentCount = this.attendanceEntries.filter(entry => entry.status === 'Absent').length;
+
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Present', 'Absent'],
+                    datasets: [{
+                        label: 'Attendance Status',
+                        data: [presentCount, absentCount],
+                        backgroundColor: ['#4CAF50', '#FF5722'],
+                        borderColor: ['#4CAF50', '#FF5722'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         }
     },
     mounted() {
-        this.fetchData(); // Fetch the data when the component is mounted
+        this.fetchData();
     }
-}
+};
 </script>
 
 <style scoped>
-.employee-dashboard {
+.employee-attendance {
     padding: 20px;
     font-family: Arial, sans-serif;
+    background: #ddd;
 }
 
 .overview {
@@ -114,14 +180,32 @@ export default {
 .performance-tracker {
     width: 45%;
     padding: 20px;
-    border: 1px solid #ddd;
+    background: #ffffff;
+    border: 1px solid #000000;
     border-radius: 8px;
 }
 
 .leave-requests {
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
+    background: #ffffff;
     border-radius: 8px;
+}
+
+.scrollable-table {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid black;
+}
+
+th {
+    background-color: #ddd;
 }
 
 table {
@@ -129,14 +213,37 @@ table {
     border-collapse: collapse;
 }
 
-th,
-td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
 button {
     margin-right: 5px;
+}
+
+/* Button styling */
+.approve-btn {
+    background-color: #4CAF50; /* Green */
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.deny-btn {
+    background-color: #FF5722; /* Red */
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Row highlight based on attendance status */
+.present {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.absent {
+    background-color: #FF5722; /* Red */
+    color: white;
 }
 </style>
