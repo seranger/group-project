@@ -49,7 +49,7 @@ export default {
         { name: "Home", icon: "home-smile", route: "/Home" },
         { name: "Finance", icon: "money", route: "/WorkersView" },
         { name: "Employees", icon: "user-circle", route: "/RequestView" },
-        { name: "Company", icon: "buildings", route: "/" },
+        { name: "Company", icon: "buildings", route: "/AboutCom" },
         { name: "Log-Out", icon: "log-out", route: "/Welcome" },
       ],
     };

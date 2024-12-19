@@ -7,6 +7,7 @@ import SidebarLayout from '@/components/SidebarLayout.vue'
 import WorkersView from '@/views/WorkersView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import RequestView from '@/views/RequestView.vue'
+import AboutCom from '@/components/AboutCom.vue'
 
 
 const routes = [
@@ -22,7 +23,7 @@ const routes = [
       { path: '/WorkersView', component: WorkersView },
       { path: '/Home', component: Home },
       { path: '/RequestView', component: RequestView },
-      { path: '/Welcome', component: Welcome },
+      { path: '/AboutCom', component: AboutCom },
     ],
   },
   {
@@ -56,6 +57,12 @@ const routes = [
     path: '/ProfileView',
     name: 'ProfileView',
     component: ProfileView
+
+  },
+  {
+    path: '/AboutCom',
+    name: 'AboutCom',
+    component: AboutCom
 
   },
   
