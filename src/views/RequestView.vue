@@ -77,6 +77,7 @@
 </template>
 
 <script>
+// The following code was provided by ChatGPT, an AI language model by OpenAI, during a conversation.
 // Import Chart.js library
 import { Chart } from 'chart.js';
 

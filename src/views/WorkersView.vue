@@ -108,6 +108,8 @@ export default {
                 return { ...payrollItem, ...employeeInfo };
             });
         },
+        // The following code was provided by ChatGPT, an AI language model by OpenAI, during a conversation.
+
         calculateMonthlySalary(hoursWorked) {
             return this.hourlyRate * hoursWorked;
         },

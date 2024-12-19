@@ -1,4 +1,5 @@
 <template>
+  <!-- The following sidebar layout code was provided by ChatGPT in response to a request for a flexible sidebar layout: -->
   <div class="layout-with-sidebar">
     <!-- Sidebar Navigation -->
     <div :class="{ 'sidebar-collapsed': isSidebarCollapsed }">

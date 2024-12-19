@@ -71,7 +71,7 @@
           </table>
         </div>
       </section>
-
+      <!-- This code was adapted from [Vue Charts Video Tutorials] by [Syncfusion, Inc], available at: [https://youtube.com/@syncfusioninc?si=yU_b0ktjPqSnvd4t]. -->
       <!-- Employee Composition -->
       <section class="employee-composition">
         <h2>Employee Composition</h2>
