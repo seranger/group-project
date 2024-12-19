@@ -3,6 +3,10 @@
     <div class="carousel">
       <!-- Slide -->
       <div class="slide" v-for="(slide, index) in slides" :key="index" :class="{ active: currentSlide === index }">
+        <span>
+                    <img src="../assets/MTech.jpg" alt="" class="logo-About">
+                </span>
+                <h1 style="text-align:center">Meet The Team</h1>
         <img :src="slide.img" :alt="slide.alt" />
         <div class="slide-content">
           <h2>{{ slide.title }}</h2>
@@ -247,4 +251,11 @@ p {
   background: none;
   border: none;
 }
+
+.logo-About {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  align-items: center;}
+
 </style>
