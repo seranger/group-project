@@ -1,119 +1,250 @@
 <template>
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-    <!-- Carousel inner -->
-    <div class="carousel-inner">
-      <!-- Loop through the slides and create each one dynamically -->
-      <div 
-        class="carousel-item"
-        v-for="(slide, index) in slides" 
-        :key="index"
-        :class="{ 'active': index === currentIndex }"
-      >
-        <img :src="slide.img" class="d-block w-100 carousel-image" :alt="slide.alt" />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ slide.title }}</h5>
+  <div class="carousel-container">
+    <div class="carousel">
+      <!-- Slide -->
+      <div class="slide" v-for="(slide, index) in slides" :key="index" :class="{ active: currentSlide === index }">
+        <img :src="slide.img" :alt="slide.alt" />
+        <div class="slide-content">
+          <h2>{{ slide.title }}</h2>
           <p>{{ slide.description }}</p>
-          <p><button class="button_">Contact</button></p>
+          <button class="contact-btn" @click="showContact(slide)">Contact</button>
         </div>
       </div>
+
+      <!-- Navigation Buttons -->
+      <button class="nav-btn prev" @click="prevSlide">❮</button>
+      <button class="nav-btn next" @click="nextSlide">❯</button>
     </div>
 
-    <!-- Carousel controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" @click="prevSlide">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" @click="nextSlide">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <!-- Dots Navigation -->
+    <div class="dots">
+      <span v-for="(slide, index) in slides" :key="index" class="dot" :class="{ active: currentSlide === index }"
+        @click="goToSlide(index)"></span>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal" v-if="isModalVisible">
+      <div class="modal-content">
+        <span class="close-btn" @click="closeModal">&times;</span>
+        <h2>Contact Information</h2>
+        <p><strong>Name:</strong> {{ currentContact.title }}</p>
+        <p><strong>Contact:</strong> {{ currentContact.contactInfo }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import mogale from '@/assets/mogale.jpg'
-import sino from '@/assets/sino.jpg'
-import surur from '@/assets/surur.jpg'
+import mogale from "@/assets/mogale.jpg";
+import sino from "@/assets/sino.jpg";
+import surur from "@/assets/surur.jpg";
 
 export default {
   data() {
     return {
-      currentIndex: 0,
       slides: [
         {
           img: mogale,
           alt: "First slide",
           title: "Mogale Kgasago - Project Lead",
-          description: "Organizes software projects and can assign tasks to the team according to the specifications of the task."
+          description:
+            "Organizes software projects and can assign tasks to the team according to the specifications of the task.",
+          contactInfo: "mogalekgasago17@gmail.com | +27 65 875 6146",
         },
         {
           img: sino,
           alt: "Second slide",
           title: "Sinovuyo Mjulwa - Lead Developer",
-          description: "In charge of managing the code of the team and coding the main functionality of the application."
+          description:
+            "In charge of managing the code of the team and coding the main functionality of the application.",
+          contactInfo: "sinovuyo@gmail.com.com | +27 63 529 1242",
         },
         {
           img: surur,
           alt: "Third slide",
-          title: "UI/UX Designer - ",
-          description: "In charge of designing the UI/UX of the application, making sure the website is user friendly and visually appealing."
-        }
-      ]
+          title: "UI/UX Designer",
+          description:
+            "In charge of designing the UI/UX of the application, making sure the website is user friendly and visually appealing.",
+          contactInfo: "msururs1@gmail.com | +27 71 874 9000",
+        },
+      ],
+      currentSlide: 0,
+      isModalVisible: false,
+      currentContact: {},
     };
   },
   methods: {
     nextSlide() {
-      // Move to the next slide, wrapping around if necessary
-      this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+      this.currentSlide = (this.currentSlide + 1) % this.slides.length;
     },
     prevSlide() {
-      // Move to the previous slide, wrapping around if necessary
-      this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
-    }
+      this.currentSlide =
+        (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+    },
+    goToSlide(index) {
+      this.currentSlide = index;
+    },
+    showContact(contact) {
+      this.currentContact = contact;
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
   },
-  mounted() {
-    // Ensure the carousel starts at the first slide
-    this.currentIndex = 0;
-  }
 };
 </script>
 
 <style scoped>
-main{
-  display: flex;
+.carousel-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
 }
 
-.carousel-inner {
+.carousel {
   position: relative;
   overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.carousel-inner img {
+.slide {
+  display: none;
+  text-align: center;
+  position: relative;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+}
+
+img {
   width: 100%;
   height: auto;
-  object-fit: cover; /* Ensures the image covers the area without distortion */
+  max-height: 400px;
+  object-fit: cover;
+  border-bottom: 4px solid #ddd;
 }
 
-.carousel-caption {
-  background-color: rgba(0, 0, 0, 0.5); /* Adds background for readability */
-  padding: 15px;
+.slide-content {
+  padding: 20px;
+  background: #fff;
+  text-align: center;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for controls */
+h2 {
+  margin: 15px 0 10px;
+  font-size: 1.8em;
+  color: #333;
 }
 
-.button_ {
+p {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.contact-btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
   background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-btn:hover {
+  background-color: #0056b3;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   padding: 10px 20px;
+  font-size: 1.5em;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 50%;
+  z-index: 10;
 }
 
-.button_:hover {
-  background-color: #0056b3;
+.nav-btn.prev {
+  left: 10px;
+}
+
+.nav-btn.next {
+  right: 10px;
+}
+
+.dots {
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  background: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background: #007bff;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 1em;
+  color: #333;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.5em;
+  color: #333;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 </style>
