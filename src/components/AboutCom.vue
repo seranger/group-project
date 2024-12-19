@@ -66,7 +66,7 @@ export default {
         {
           img: surur,
           alt: "Third slide",
-          title: "UI/UX Designer",
+          title: "Moegamat Surur Samaai - UI/UX Designer",
           description:
             "In charge of designing the UI/UX of the application, making sure the website is user friendly and visually appealing.",
           contactInfo: "msururs1@gmail.com | +27 71 874 9000",

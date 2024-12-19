@@ -22,3 +22,12 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### TEAM MEMBERS
+
+1. Sinovuyo Mjulwa
+
+2. Mogale Kgasago
+
+3. Moegamat Surur Samaai
+
