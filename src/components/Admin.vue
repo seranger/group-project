@@ -28,7 +28,8 @@
       <div class="modal">
         <h2>Success</h2>
         <p>Login Successful!</p>
-        <button @click="closeModal" class="modal-button">Okay</button>
+        <!-- Unicode tick symbol -->
+        <div class="tick-icon">&#10003;</div>
       </div>
     </div>
   </div>
@@ -162,6 +163,12 @@ input {
   transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 250px; /* Smaller modal size */
+}
+/* Tick Icon Styles */
+.tick-icon {
+  font-size: 3rem;
+  color: #4caf50; /* Green color for success */
+  margin-top: 1rem;
 }
 
 .modal h2 {

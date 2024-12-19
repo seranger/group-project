@@ -45,9 +45,9 @@ export default {
     return {
       isSidebarCollapsed: true,
       menus: [
-        { name: "Dashboard", icon: "dashboard", route: "/Home" },
+        { name: "Home", icon: "home-smile", route: "/Home" },
         { name: "Finance", icon: "money", route: "/WorkersView" },
-        { name: "Employees", icon: "briefcase", route: "/RequestView" },
+        { name: "Employees", icon: "user-circle", route: "/RequestView" },
         { name: "Company", icon: "buildings", route: "/" },
         { name: "Log-Out", icon: "log-out", route: "/Welcome" },
       ],
@@ -91,7 +91,7 @@ export default {
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: (2rem + 32px);
+  width: 2rem + 32px;
   background: #333;
   padding: 1rem;
   color: white;
@@ -120,12 +120,40 @@ export default {
 }
 
 .sidebar ul li {
-  margin: 10px;
   display: grid;
   margin-top: 60px;
   grid-template-columns: 4rem 1fr;
   cursor: pointer;
   overflow: hidden;
+  margin: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar ul li:hover{
+  background-color: #ffce00; /* Highlight background */
+  color: black; /* Highlight text color */
+  border-radius: 4px;
+}
+.sidebar ul li.active {
+  background-color: #007bff; /* Highlight background */
+  color: #ffffff; /* Highlight text color */
+  border-radius: 4px;
+}
+
+.sidebar ul li:hover .nav-link,
+.sidebar ul li.active .nav-link {
+  color: #ffffff; /* Highlight text color */
+}
+
+.sidebar ul li .nav-link {
+  margin-left: 10px; /* Space between icon and text */
+  text-decoration: none;
+  color: inherit; /* Inherit color for hover effect */
+}
+
+.sidebar ul li:hover .nav-link,
+.sidebar ul li.active .nav-link {
+  color: #ffffff; /* Highlight text color */
 }
 
 .nav-link {
@@ -156,12 +184,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: #333;
   color: white;
 }
 
 .sidebar ul li a.active {
   font-weight: bold;
   background-color: #007bff;
+}
+
+.sidebar ul li:hover box-icon,
+.sidebar ul li.active box-icon {
+  color: #ffffff; /* Highlight icon color */
 }
 </style>

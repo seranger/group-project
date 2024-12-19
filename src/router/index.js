@@ -11,29 +11,19 @@ import RequestView from '@/views/RequestView.vue'
 
 const routes = [
   {
+    path: '/',
+    name: 'Welcome',
+    component: Welcome
+  },
+  {
     path: '/SidebarLayout',
     component: SidebarLayout,
     children: [
       { path: '/WorkersView', component: WorkersView },
       { path: '/Home', component: Home },
       { path: '/RequestView', component: RequestView },
-      { path: '/', component: RequestView },
+      { path: '/Welcome', component: Welcome },
     ],
-  },
-  {
-    path: '/welcome',
-    name: 'Welcome',
-    component: Welcome
-  },
-  {
-    path: '/Employee',
-    name: 'Employee',
-    component: Employee
-  },
-  {
-    path: '/Admin',
-    name: 'Admin',
-    component: Admin
   },
   {
     path: '/Home',
@@ -47,17 +37,28 @@ const routes = [
 
   },
   {
+    path: '/RequestView',
+    name: 'RequestView',
+    component: RequestView
+
+  },
+  {
+    path: '/Admin',
+    name: 'Admin',
+    component: Admin
+  },
+  {
+    path: '/Employee',
+    name: 'Employee',
+    component: Employee
+  },
+  {
     path: '/ProfileView',
     name: 'ProfileView',
     component: ProfileView
 
   },
-  {
-    path: '/RequestView',
-    name: 'RequestView',
-    component: RequestView
-
-  }
+  
   
   
 ]

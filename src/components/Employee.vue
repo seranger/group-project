@@ -28,7 +28,7 @@
       <div class="modal">
         <h2>Success</h2>
         <p>Login Successful!</p>
-        <button @click="closeModal" class="modal-button">Okay</button>
+        <div class="tick-icon">&#10003;</div>
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@ input {
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #28a745;
 }
 
 .forgot-password {
@@ -160,10 +160,16 @@ input {
   border-radius: 8px;
   text-align: center;
   transform: translate(-50%, -50%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px #00000033;
   width: 250px; /* Smaller modal size */
 }
 
+/* Tick Icon Styles */
+.tick-icon {
+  font-size: 2rem;
+  color: #4caf50; /* Green color for success */
+  margin-top: 1rem;
+}
 .modal h2 {
   margin-bottom: 0.5rem;
   font-size: 1.25rem;
@@ -186,6 +192,6 @@ input {
 }
 
 .modal-button:hover {
-  background-color: #218838;
+  background-color: #007bff;
 }
 </style>
