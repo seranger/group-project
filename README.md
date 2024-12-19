@@ -31,3 +31,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 3. Moegamat Surur Samaai
 
+### BEFORE RUNNING THE PROJECT INSTALL THESE...
+
+1. npm install jspdf
+b. mpm install jspdf-autotable
+
