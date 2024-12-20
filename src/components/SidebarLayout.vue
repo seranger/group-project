@@ -131,7 +131,7 @@ export default {
 }
 
 .sidebar ul li:hover{
-  background-color: #ffce00; /* Highlight background */
+  background-color: #007bff; /* Highlight background */
   color: black; /* Highlight text color */
   border-radius: 4px;
 }
@@ -176,7 +176,7 @@ export default {
 }
 
 .nav-link:hover {
-  background-color: #ffce00;
+  background-color: #007bff;
   color: black;
   font-weight: bold;
 }

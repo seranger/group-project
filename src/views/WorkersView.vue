@@ -10,6 +10,7 @@
                         <p>Hours-Working: {{ employee.hoursWorked }}</p>
                         <p>Leave-Deduction: {{ employee.leaveDeductions }}%</p>
                         <p>Department: {{ employee.department }}</p>
+                        <p>Perfomance: {{ employee.perfomance }}</p>
                         <button class="btn btn-primary" @click="showPayslip(employee)">
                             Produce Payslip
                         </button>

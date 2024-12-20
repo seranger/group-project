@@ -20,16 +20,16 @@
           <p>250 <span class="growth up">+800%</span></p>
         </div>
         <div class="card">
-          <h3>Job View</h3>
-          <p>3,342 <span class="growth up">+22.0%</span></p>
+          <h3>Good Perfomance</h3>
+          <p>100 <span class="growth up">+40%</span></p>
         </div>
         <div class="card">
-          <h3>Job Applied</h3>
-          <p>77 <span class="growth up">+12.0%</span></p>
+          <h3>Bad Perfomance</h3>
+          <p>50 <span class="growth down">-20%</span></p>
         </div>
         <div class="card">
-          <h3>Resigned Employees</h3>
-          <p>17 <span class="growth down">-7.0%</span></p>
+          <h3>Average Perfomance</h3>
+          <p>100 <span class="growth up">+40%</span></p>
         </div>
       </section>
 
