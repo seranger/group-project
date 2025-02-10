@@ -125,16 +125,31 @@ export default createStore({
       location.reload()
     },
 
-    async updateAttendance(context, payload){
-      await fetch('http://localhost:3000/attendance/'+ payload.id,{
-        method:'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(payload)
-      })
-      location.reload()
-    },
+    // In Vuex store (store.js)
+
+    async updateAttendance(context, payload) {
+      try {
+          // Make a PATCH request to the backend API
+          const response = await fetch(`http://localhost:3000/attendance/${payload.id}`, {
+              method: 'PATCH',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+          });
+  
+          if (response.ok) {
+              // If the update is successful, update the state without reloading the page
+              context.commit('setAttendance', payload);  // Update the attendance data in the store
+          } else {
+              throw new Error('Failed to update attendance');
+          }
+      } catch (error) {
+          console.error('Error updating attendance:', error);
+          throw new Error('Failed to update attendance');
+      }
+  },
+  
 
     async getAllLeaveRequests(context, payload){
       // let data = await (await  fetch('API URL/employees')).json
@@ -173,16 +188,29 @@ export default createStore({
       location.reload()
     },
 
-    async updateLeaveRequests(context, payload){
-      await fetch('http://localhost:3000/leaveRequests/'+ payload.id,{
-        method:'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(payload)
-      })
-      location.reload()
-    },
+    async updateLeaveRequests(context, payload) {
+      try {
+          // Make a PATCH request to the backend API
+          const response = await fetch(`http://localhost:3000/leaveRequests/${payload.id}`, {
+              method: 'PATCH',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+          });
+  
+          if (response.ok) {
+              // If the update is successful, update the state without reloading the page
+              context.commit('setLeaveRequests', payload);  // Update the leaveRequests data in the store
+          } else {
+              throw new Error('Failed to update leave request');
+          }
+      } catch (error) {
+          console.error('Error updating leave request:', error);
+          throw new Error('Failed to update leave request');
+      }
+  },
+  
     async getAllPayroll(context, payload){
       // let data = await (await  fetch('API URL/employees')).json
       let data = await  fetch('http://localhost:3000/payroll')

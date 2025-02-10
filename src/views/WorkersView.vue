@@ -33,6 +33,7 @@
                             <button class="btn btn-primary" @click="showPayslip(employee)">
                                 Produce Payslip
                             </button>
+                            <i @click="setUpdateEmployeeData(employee)" style="color:green; cursor: pointer; margin-right: 5px" class="fas fa-pencil"></i>
                             <i @click="deletePayroll(employee.payroll_ID)" style="color:red; cursor: pointer;" class="fas fa-trash"></i>
                         </td>
                     </tr>
@@ -164,11 +165,40 @@ export default {
       console.log("Adding payroll:", this.dataList);
       this.closeModal();
     },
-    updatePayroll() {
-      console.log("Updating payroll:", this.dataList);
-      this.closeModal();
+    
+    editPayroll(payload) {
+      this.dataList = { 
+        ...payload, 
+        payrollID: payload.payroll_ID, 
+        employeeID: payload.employeeID 
+      };
+      this.isEditing = true; // Set editing mode
+      this.showModal = true; // Show the modal
     },
 
+    // Update payroll record
+    updatePayroll() {
+      if (this.dataList.payroll_ID) {
+        console.log("Updating payroll:", this.dataList);
+        this.$store.dispatch('updatePayroll', this.dataList).then(() => {
+          this.getAllPayroll();  // Fetch updated payroll data
+          this.closeModal();   // Close modal after update
+        });
+      }
+    },
+    setUpdateEmployeeData(employee) {
+    // Set the selected employee data to dataList for editing
+    this.dataList = {
+        payroll_ID: employee.payroll_ID,
+        employeeID: employee.employeeID,
+        hours_worked: employee.hours_worked,
+        leave_deductions: employee.leave_deductions,
+        final_salary: employee.final_salary,
+        performance: employee.performance
+    };
+    this.isEditing = true;  // Enable editing mode
+    this.showModal = true;  // Show the modal
+},
     searchPayroll() {
             const query = this.searchQuery.toLowerCase();
             this.filteredPayroll = this.payroll.filter(employee =>
