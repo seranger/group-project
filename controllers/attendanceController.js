@@ -23,12 +23,17 @@ const deleteAttendanceCon = async(req,res)=>{
     });
 }
 
-const updateAttendanceCon = async(req,res)=>{
-    let {date,attendance_Status,employeeID} = req.body; 
-    await updateAttendance(date,attendance_Status,employeeID);
-    res.json({
-    message: 'Attendance updated successfully'
-    });
-}
+const updateAttendanceCon = async (date, attendance_Status, employeeID) => {
+    try {
+      // Query to update the attendance in the database
+      await pool.query(
+        'UPDATE attendance SET status = ?, date = ? WHERE employee_id = ?', 
+        [attendance_Status, date, employeeID]  // Use parameters from request body
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error updating attendance');
+    }
+  };
 
 export {getAllAttendanceCon,getAttendanceCon,addAttendanceCon,deleteAttendanceCon,updateAttendanceCon};

@@ -26,7 +26,11 @@ import { pool } from "../config/config.js";
 
 // Fetch all leave requests
 const getAllLeaveRequests = async () => {
-    const [data] = await pool.query('SELECT * FROM leave_requests');
+    const [data] = await pool.query(`
+        SELECT lr.*, e.name
+        FROM leave_requests lr
+        JOIN employees e ON lr.employeeId = e.employeeID
+    `);
     return data;
 };
 

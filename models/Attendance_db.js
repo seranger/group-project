@@ -3,7 +3,11 @@ import { pool } from "../config/config.js";
 
 // Fetch all attendance records
 const getAllAttendance = async () => {
-    const [data] = await pool.query('SELECT * FROM attendance');
+    const [data] = await pool.query(`
+        SELECT a.*, e.name 
+        FROM attendance a
+        JOIN employees e ON a.employeeId = e.employeeID
+    `);
     return data;
 };
 
@@ -29,10 +33,16 @@ const deleteAttendance = async (employeeID) => {
 
 // Update an existing attendance record for a specific employee
 const updateAttendance = async (date, attendance_Status, employeeID) => {
-    await pool.query(
-        'UPDATE attendance SET date = ?, attendance_Status = ? WHERE employeeID = ?',
-        [date, attendance_Status, employeeID]
-    );
-};
+    try {
+      // Query to update the attendance in the database
+      await pool.query(
+        'UPDATE attendance SET status = ?, date = ? WHERE employee_id = ?', 
+        [attendance_Status, date, employeeID]  // Use parameters from request body
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error updating attendance');
+    }
+  };
 
 export { getAllAttendance, getAttendance, addAttendance, deleteAttendance, updateAttendance };
