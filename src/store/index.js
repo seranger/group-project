@@ -188,28 +188,28 @@ export default createStore({
       location.reload()
     },
 
-    async updateLeaveRequests(context, payload) {
+    async updatePayrollStatus(context, payload) {
       try {
-          // Make a PATCH request to the backend API
-          const response = await fetch(`http://localhost:3000/leaveRequests/${payload.id}`, {
+          const response = await fetch(`http://localhost:3000/payroll/${payload.payroll_ID}`, {
               method: 'PATCH',
               headers: {
                   'Content-Type': 'application/json'
               },
-              body: JSON.stringify(payload)
+              body: JSON.stringify({ status: payload.status }) // Update only the status field
           });
   
           if (response.ok) {
-              // If the update is successful, update the state without reloading the page
-              context.commit('setLeaveRequests', payload);  // Update the leaveRequests data in the store
+              const updatedPayroll = await response.json();
+              context.commit('updatePayroll', updatedPayroll); // Commit the change to Vuex store
           } else {
-              throw new Error('Failed to update leave request');
+              throw new Error('Failed to update payroll status');
           }
       } catch (error) {
-          console.error('Error updating leave request:', error);
-          throw new Error('Failed to update leave request');
+          console.error('Error updating payroll:', error);
+          throw new Error('Failed to update payroll');
       }
   },
+  
   
     async getAllPayroll(context, payload){
       // let data = await (await  fetch('API URL/employees')).json

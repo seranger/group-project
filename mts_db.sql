@@ -117,29 +117,29 @@ CREATE TABLE leave_requests (
   );
 
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('1', '1', '2024-11-22', 'Sick Leave', 'Approved');
+VALUES ('1', '1', '2024-11-22', 'Sick Leave', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
 VALUES ('2', '1', '2024-12-01', 'Personal', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('3', '2', '2024-11-15', 'Family Responsibility', 'Denied');
+VALUES ('3', '2', '2024-11-15', 'Family Responsibility', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('4', '2', '2024-12-02', 'Vacation', 'Approved');
+VALUES ('4', '2', '2024-12-02', 'Vacation', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('5', '3', '2024-11-10', 'Medical Appointment', 'Approved');
+VALUES ('5', '3', '2024-11-10', 'Medical Appointment', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
 VALUES ('6', '3', '2024-12-05', 'Personal', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('7', '4', '2024-11-20', 'Bereavement', 'Approved');
+VALUES ('7', '4', '2024-11-20', 'Bereavement', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
 VALUES ('8', '5', '2024-12-01', 'Child care', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('9', '6', '2024-11-18', 'Sick Leave', 'Approved');
+VALUES ('9', '6', '2024-11-18', 'Sick Leave', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
 VALUES ('10', '7', '2024-11-22', 'Vacation', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('11', '8', '2024-12-02', 'Medical Appointment', 'Approved');
+VALUES ('11', '8', '2024-12-02', 'Medical Appointment', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
-VALUES ('12', '9', '2024-11-19', 'Child care', 'Denied');
+VALUES ('12', '9', '2024-11-19', 'Child care', 'Pending');
 INSERT INTO `mts_db`.`leave_requests` (`leave_RequestID`, `employeeID`, `date`, `reason`, `leave_status`) 
 VALUES ('13', '10', '2024-12-03', 'Vacation', 'Pending');
     

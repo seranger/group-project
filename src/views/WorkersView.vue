@@ -33,7 +33,6 @@
                             <button class="btn btn-primary" @click="showPayslip(employee)">
                                 Produce Payslip
                             </button>
-                            <i @click="setUpdateEmployeeData(employee)" style="color:green; cursor: pointer; margin-right: 5px" class="fas fa-pencil"></i>
                             <i @click="deletePayroll(employee.payroll_ID)" style="color:red; cursor: pointer;" class="fas fa-trash"></i>
                         </td>
                     </tr>
@@ -72,6 +71,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Payroll Modal -->
     <section class="payroll-form">
     <div v-if="showModal" class="custom-modal" @click.self="closeModal">
     <div class="modal-content">
@@ -162,8 +163,20 @@ export default {
       document.body.classList.remove("modal-open");
     },
     addPayroll() {
-      console.log("Adding payroll:", this.dataList);
-      this.closeModal();
+        if (this.dataList.employeeID && this.dataList.hours_worked && this.dataList.leave_deductions && this.dataList.final_salary && this.dataList.performance) {
+            this.$store.dispatch('addPayroll', this.dataList).then(() => {
+                this.getAllPayroll(); // Fetch updated data
+                this.closeModal();
+                this.resetForm();
+            });
+        }
+    },
+    setUpdatePayrollData(payload) {
+      this.dataList = { 
+        ...payload
+      };
+      this.isEditing = true;
+      this.openAddPayrollModal();
     },
     
     editPayroll(payload) {
@@ -177,28 +190,16 @@ export default {
     },
 
     // Update payroll record
-    updatePayroll() {
-      if (this.dataList.payroll_ID) {
-        console.log("Updating payroll:", this.dataList);
-        this.$store.dispatch('updatePayroll', this.dataList).then(() => {
-          this.getAllPayroll();  // Fetch updated payroll data
-          this.closeModal();   // Close modal after update
-        });
-      }
-    },
-    setUpdateEmployeeData(employee) {
-    // Set the selected employee data to dataList for editing
-    this.dataList = {
-        payroll_ID: employee.payroll_ID,
-        employeeID: employee.employeeID,
-        hours_worked: employee.hours_worked,
-        leave_deductions: employee.leave_deductions,
-        final_salary: employee.final_salary,
-        performance: employee.performance
-    };
-    this.isEditing = true;  // Enable editing mode
-    this.showModal = true;  // Show the modal
+    uupdatePayroll() {
+  this.$store.dispatch('updatePayroll', this.dataList).then(() => {
+    this.getAllPayroll();  // Refresh the payroll list
+    this.closeModal();
+  }).catch(err => {
+    console.error("Error updating payroll:", err);
+  });
 },
+
+
     searchPayroll() {
             const query = this.searchQuery.toLowerCase();
             this.filteredPayroll = this.payroll.filter(employee =>
