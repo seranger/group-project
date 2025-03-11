@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
-    <!-- Main Content -->
+    
     <main>
       <header>
         <div class="user-profile">
@@ -13,7 +13,6 @@
         <button class="notification">🔔</button>
       </header>
 
-      <!-- Stats Cards -->
       <section class="stats-cards">
         <div class="card">
           <h3>Total Employees</h3>
@@ -33,7 +32,7 @@
         </div>
       </section>
 
-      <!-- Job Statistics -->
+      
       <section class="job-statistics">
         <h2>Job Statistics</h2>
         <div class="chart">
@@ -41,7 +40,7 @@
         </div>
       </section>
 
-      <!-- Employee Status -->
+      
       <section class="employee-status">
         <h2>Employee Data</h2>
         <div class="table-container">
@@ -71,8 +70,7 @@
           </table>
         </div>
       </section>
-      <!-- This code was adapted from [Vue Charts Video Tutorials] by [Syncfusion, Inc], available at: [https://youtube.com/@syncfusioninc?si=yU_b0ktjPqSnvd4t]. -->
-      <!-- Employee Composition -->
+      
       <section class="employee-composition">
         <h2>Employee Composition</h2>
         <div class="chart">
@@ -109,7 +107,7 @@ export default {
       });
   },
   mounted() {
-    // Job Statistics Chart
+    
     const jobStatsData = {
       labels: ["Engineering", "Design", "Marketing", "Sales", "HR"],
       datasets: [
@@ -149,7 +147,7 @@ export default {
       options: jobStatsOptions,
     });
 
-    // Employee Composition Pie Chart
+    
     const employeeCompositionData = {
       labels: ["Engineering", "HR", "Design", "Marketing", "Sales"],
       datasets: [
@@ -191,6 +189,7 @@ export default {
   display: flex;
   background-color: #d3d3d3;
   transition: all 0.3s ease;
+  flex-direction: column; /* Ensure default column layout */
 }
 
 .table-container {
@@ -245,7 +244,6 @@ header {
   margin-right: 10px;
   width: 50px;
   height: 50px;
-  align-items: center;
 }
 
 .notification {
@@ -294,5 +292,96 @@ header {
   align-items: center;
   justify-content: center;
   border: 1px dashed #ccc;
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1024px) {
+  #dashboard {
+    flex-direction: column;
+  }
+
+  .stats-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-profile img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .table-container {
+    max-height: 250px;
+  }
+
+  .chart {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  #dashboard {
+    flex-direction: column;
+  }
+
+  .stats-cards {
+    grid-template-columns: 1fr; /* 1 column for smaller devices like phones */
+  }
+
+  header {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .user-profile img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .table-container {
+    max-height: 200px;
+  }
+
+  .chart {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  #dashboard {
+    padding: 10px;
+  }
+
+  .stats-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  header {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .user-profile img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .chart {
+    height: 150px;
+  }
 }
 </style>

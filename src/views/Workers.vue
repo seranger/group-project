@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Employee Payroll</h1>
+        <h1>Payroll</h1>
         <div class="grid-container">
             <div class="grid-item" v-for="employee in combinedData" :key="employee.employeeId">
                 <div class="card">
@@ -12,14 +12,14 @@
                         <p>Department: {{ employee.department }}</p>
                         <p>Perfomance: {{ employee.perfomance }}</p>
                         <button class="btn btn-primary" @click="showPayslip(employee)">
-                            Produce Payslip
+                            Process Payslip
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
+       
         <div class="modal" tabindex="-1" v-show="selectedEmployee">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -59,13 +59,14 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 export default {
+    name: "WorkersView",
     data() {
         return {
             selectedEmployee: false,
-            payrollData: [],  // Holds the data for the employee whose payslip is shown
+            payrollData: [],  
             employeeInformation: [],
-            combinedData: [], // This will hold merged data
-            hourlyRate: 300, // hourly rate for calculations
+            combinedData: [], 
+            hourlyRate: 300, 
         };
     },
     created() {
@@ -74,7 +75,7 @@ export default {
     methods: {
         async fetchData() {
             try {
-                // Fetch both files in parallel
+                
                 const [payrollResponse, employeeResponse] = await Promise.all([
                     fetch("/Data/payroll_data.json"),
                     fetch("/Data/employee_info.json"),
@@ -84,32 +85,32 @@ export default {
                     throw new Error("Error fetching data");
                 }
 
-                // Parse responses
+                
                 const payrollData = await payrollResponse.json();
                 const employeeInfo = await employeeResponse.json();
 
-                // Merge the two datasets based on employeeId
+                
                 this.combinedData = this.mergeData(payrollData, employeeInfo);
 
-                console.log("Merged Data: ", this.combinedData); // Check merged data in console
+                console.log("Merged Data: ", this.combinedData); 
             } catch (error) {
                 console.error("Error loading data:", error.message);
             }
         },
         mergeData(payroll, employee) {
-            // Combine data from both JSON files
+            
             return payroll.map((payrollItem) => {
                 const employeeInfo = employee.find(
                     (employee) => employee.employeeId === payrollItem.employeeId
                 );
                 if (!employeeInfo) {
                     console.warn(`No matching employee for ID ${payrollItem.employeeId}`);
-                    return payrollItem; // Return partial data if no match is found
+                    return payrollItem; 
                 }
                 return { ...payrollItem, ...employeeInfo };
             });
         },
-        // The following code was provided by ChatGPT, an AI language model by OpenAI, during a conversation.
+        
 
         calculateMonthlySalary(hoursWorked) {
             return this.hourlyRate * hoursWorked;
@@ -122,17 +123,17 @@ export default {
             return this.calculateMonthlySalary(employee.hoursWorked) - deductionAmount;
         },
         showPayslip(employee) {
-            this.selectedEmployee = employee; // Set the selected employee for the modal
+            this.selectedEmployee = employee; 
         },
 
-        // Download payslip as PDF
+       
     downloadPayslip(employee) {
       const doc = new jsPDF();
 
-      // Title
+      
       doc.text("Employee Payslip", 20, 20);
 
-      // Table Headers and Data
+      
       const headers = [["Description", "Amount"]];
       const data = [
         ["Name", employee.name],
@@ -143,15 +144,15 @@ export default {
         ["Salary After Deduction", `R${this.salaryAfterDeduction(employee)}`],
       ];
 
-      // Add table to PDF
+      
       doc.autoTable({
         head: headers,
         body: data,
-        startY: 30, // Adjust table position
-        theme: "grid", // Optional: Use 'grid', 'striped', etc.
+        startY: 30, 
+        theme: "grid", 
       });
 
-      // Save PDF file
+     
       doc.save(`${employee.name}-payslip.pdf`);
     },
   },
@@ -162,21 +163,17 @@ export default {
 <style scoped>
 h1 {
     text-align: center;
-
 }
 
 .card {
-    /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Add some padding inside the card container */
 .container {
     padding: 2px 16px;
 }
@@ -189,13 +186,11 @@ h1 {
     border: 3px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Added shadow for better appearance */
 }
 
 .card-body {
     text-align: center;
     padding: 15px;
-    /* Adjust padding for consistent spacing */
 }
 
 .modal {
@@ -206,11 +201,8 @@ h1 {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    /* Responsive columns */
     gap: 15px;
-    /* Spacing between grid items */
     margin: 20px;
-    /* Adds padding around the grid */
 }
 
 .grid-item {
@@ -221,37 +213,24 @@ h1 {
 
 .modal-body .table {
     width: 100%;
-    /* Ensure the table spans the modal width */
     margin: 0;
-    /* Remove default margin */
     border-collapse: collapse;
-    /* Remove extra space between table borders */
     font-size: 1rem;
-    /* Adjust font size for readability */
     text-align: left;
-    /* Align text to the left */
 }
 
 .modal-body .table th {
     background-color: #F8F9FA;
-    /* Light gray background for table headers */
     font-weight: bold;
-    /* Make header text bold */
     padding: 10px;
-    /* Add spacing inside header cells */
     text-align: center;
-    /* Center align the header text */
     border: 1px solid #ddd;
-    /* Add borders for header cells */
 }
 
 .modal-body .table td {
     padding: 8px 10px;
-    /* Add padding to table data cells */
     border: 1px solid #ddd;
-    /* Add borders for data cells */
     vertical-align: middle;
-    /* Align text vertically in the middle */
 }
 
 caption {
@@ -270,10 +249,8 @@ caption {
 .grid-container {
     display: grid;
     gap: 16px;
-    /* Space between grid items */
     padding: 16px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Adjusts for responsive layout */
     align-items: start;
 }
 
@@ -292,7 +269,7 @@ caption {
 
 .card-body {
     padding: 16px;
-    color: gray
+    color: gray;
 }
 
 .card-title {
@@ -325,8 +302,6 @@ caption {
     background-color: #0056B3;
 }
 
-/*   */
-/* Modal Background */
 .modal {
     display: block;
     position: fixed;
@@ -336,13 +311,11 @@ caption {
     bottom: 0;
     z-index: 1050;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Dimmed background */
     transition: opacity 0.3s ease-in-out;
 }
 
 .modal-dialog {
     max-width: 800px;
-    /* Adjust the modal width */
     margin: 50px auto;
     position: relative;
 }
@@ -356,7 +329,6 @@ caption {
     flex-direction: column;
 }
 
-/* Modal Header */
 .modal-header {
     background-color: #007BFF;
     color: white;
@@ -378,7 +350,6 @@ caption {
     font-size: 1.5rem;
 }
 
-/* Modal Card Styling */
 .card {
     margin: 20px;
     border-radius: 8px;
@@ -416,7 +387,6 @@ caption {
     color: #007BFF;
 }
 
-/* Modal Footer */
 .modal-footer {
     padding: 10px 20px;
     display: flex;
@@ -435,5 +405,83 @@ caption {
 
 .me {
     color: black;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .modal-dialog {
+    width: 90%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .card-body {
+    padding: 8px;
+  }
+
+  .card-title {
+    font-size: 12px;
+  }
+
+  .btn {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  .modal-dialog {
+    width: 95%;
+    margin-top: 20px;
+  }
+
+  .modal-title {
+    font-size: 1rem;
+  }
+
+  .modal-footer .btn-secondary {
+    font-size: 0.875rem;
+  }
 }
 </style>

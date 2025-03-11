@@ -1,9 +1,8 @@
 <template>
   <div class="app-container">
     <div class="card">
-      <img src="../assets/MTech.jpg" alt="Logo" class="Wel-logo" />
-      <h1 class="title">ModernTech Solutions</h1>
-      <p class="description">Streamline HR processes</p>
+      <h1 class="title">HR System</h1>
+      <p class="description">Streamline HR Processes</p>
       <div class="button-group">
         <button class="btn btn-admin" @click="switchToAdmin">Administrator</button>
 
@@ -19,12 +18,12 @@ export default {
   name: "WelcomeComp",
   methods: {
     switchToAdmin() {
-      // Navigate to the admin login route
-      this.$router.push({ path: "/Admin" });
+      
+      this.$router.push({ path: "/admin" });
     },
     switchToEmployee() {
-      // Navigate to the employee login route
-      this.$router.push({ path: "/Employee" });
+      
+      this.$router.push({ path: "/employee" });
     },
   },
 };
@@ -37,6 +36,7 @@ export default {
   justify-content: center;
   min-height: 100vh;
   background-color: #d3d3d3;
+  padding: 1rem;
 }
 
 .card {
@@ -92,10 +92,51 @@ export default {
   color: #aaaaaa;
 }
 
-.Wel-logo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  align-items: center;
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .card {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .card {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    max-width: 500px;
+    padding: 2rem;
+  }
 }
 </style>

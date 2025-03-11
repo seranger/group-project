@@ -1,13 +1,12 @@
 <template>
-  <!-- The following sidebar layout code was provided by ChatGPT in response to a request for a flexible sidebar layout: -->
+  
   <div class="layout-with-sidebar">
-    <!-- Sidebar Navigation -->
+    
     <div :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
       <aside class="sidebar">
         <div class="sidebar-header">
           <span>
-            <img src="../assets/MTech.jpg" alt="" class="logo" />
-            <div class="brand" v-if="!isSidebarCollapsed">MTech Solutions</div>
+            <div class="brand" v-if="!isSidebarCollapsed">HR System</div>
           </span>
           <button class="toggle-btn" @click="toggleSidebar">
             <box-icon
@@ -33,7 +32,7 @@
       </aside>
     </div>
 
-    <!-- Main Content Area -->
+    
     <main class="content">
       <router-view />
     </main>
@@ -49,8 +48,7 @@ export default {
         { name: "Home", icon: "home-smile", route: "/Home" },
         { name: "Finance", icon: "money", route: "/WorkersView" },
         { name: "Employees", icon: "user-circle", route: "/RequestView" },
-        { name: "Company", icon: "buildings", route: "/AboutCom" },
-        { name: "Log-Out", icon: "log-out", route: "/Welcome" },
+        { name: "Log-Out", icon: "log-out", route: "/" },
       ],
     };
   },
@@ -71,9 +69,9 @@ export default {
 }
 
 .content {
-  flex-grow: 1; /* Allow the content area to take up the remaining space */
+  flex-grow: 1; 
   padding: 20px;
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  overflow-y: auto; 
   background-color: #ddd;
 }
 
@@ -131,30 +129,30 @@ export default {
 }
 
 .sidebar ul li:hover{
-  background-color: #007bff; /* Highlight background */
-  color: black; /* Highlight text color */
+  background-color: #007bff; 
+  color: black; 
   border-radius: 4px;
 }
 .sidebar ul li.active {
-  background-color: #007bff; /* Highlight background */
-  color: #ffffff; /* Highlight text color */
+  background-color: #007bff; 
+  color: #ffffff; 
   border-radius: 4px;
 }
 
 .sidebar ul li:hover .nav-link,
 .sidebar ul li.active .nav-link {
-  color: #ffffff; /* Highlight text color */
+  color: #ffffff; 
 }
 
 .sidebar ul li .nav-link {
-  margin-left: 10px; /* Space between icon and text */
+  margin-left: 10px; 
   text-decoration: none;
-  color: inherit; /* Inherit color for hover effect */
+  color: inherit; 
 }
 
 .sidebar ul li:hover .nav-link,
 .sidebar ul li.active .nav-link {
-  color: #ffffff; /* Highlight text color */
+  color: #ffffff; 
 }
 
 .nav-link {
@@ -195,6 +193,6 @@ export default {
 
 .sidebar ul li:hover box-icon,
 .sidebar ul li.active box-icon {
-  color: #ffffff; /* Highlight icon color */
+  color: #ffffff; 
 }
 </style>

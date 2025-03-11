@@ -3,7 +3,7 @@
         <div class="main">
             <div class="profile">
                 <div class="forms-container">
-                    <!-- Profile Form -->
+                    
                     <form class="profile-form">
                         <h2>Profile</h2>
                         <div class="form-group" v-for="field in formFields" :key="field.id">
@@ -16,7 +16,7 @@
                         </button>
                     </form>
 
-                    <!-- Leave Form -->
+                    
                     <form class="leave-form">
                         <h2>Leave Form</h2>
                         <div class="form-group">
@@ -47,7 +47,7 @@
                         </button>
                     </form>
                 </div>
-                <!-- Logout Button -->
+                
                 <div class="logout-container">
                     <button type="button" class="logout-btn" @click="logout">Logout</button>
                 </div>
@@ -58,6 +58,7 @@
 
 <script>
 export default {
+    name: "ProfileView",
     data() {
         return {
             fullName: "",
@@ -94,7 +95,7 @@ export default {
             });
         },
         logout() {
-            this.$router.push("/Welcome");
+            this.$router.push("/");
         },
     },
 };
@@ -110,7 +111,7 @@ export default {
     align-items: center;
 }
 
-/* Main Content */
+
 .main {
     display: flex;
     justify-content: space-around;
@@ -119,11 +120,12 @@ export default {
     flex: 1;
     padding: 20px;
     background-color: #ddd;
+    width: 100%;
     height: 100vh;
     overflow: auto;
 }
 
-/* Forms Container: Displays the forms side by side */
+
 .forms-container {
     display: flex;
     flex-wrap: wrap;
@@ -133,7 +135,7 @@ export default {
     width: 100%;
 }
 
-/* Form styles */
+
 .profile-form,
 .leave-form {
     flex: 1;
@@ -146,14 +148,14 @@ export default {
     width: 100%;
 }
 
-/* Heading styles */
+
 h2 {
     margin-bottom: 20px;
     color: #333;
     text-align: center;
 }
 
-/* Form Group */
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -175,7 +177,7 @@ h2 {
     font-size: 1rem;
 }
 
-/* Buttons */
+
 .update-btn,
 .log-request-btn {
     background-color: #007bff;
@@ -195,7 +197,7 @@ h2 {
     background-color: #28a745;
 }
 
-/* Logout Button Styling */
+
 .logout-container {
     width: 100%;
     display: flex;
@@ -211,7 +213,7 @@ h2 {
     border-radius: 6px;
     cursor: pointer;
     font-size: 1.1rem;
-    width: 200px; /* Optional: set a specific width */
+    width: 200px; 
     transition: background 0.3s;
 }
 

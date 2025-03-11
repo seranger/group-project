@@ -23,7 +23,7 @@
       <a href="#" class="forgot-password">Forgot Password?</a>
     </form>
 
-    <!-- Success Modal -->
+    
     <div v-if="showModal" class="modal-overlay">
       <div class="modal">
         <h2>Success</h2>
@@ -41,21 +41,21 @@ export default {
     return {
       employeeId: "",
       password: "",
-      errorMessage: "", // To display validation errors
-      showModal: false, // To control the success modal visibility
+      errorMessage: "", 
+      showModal: false,
     };
   },
   methods: {
     validateLogin() {
-      // Check if username and password match the criteria
-      if (this.employeeId === "s" && this.password === "1") {
-        this.showModal = true; // Show the success modal
+      
+      if (this.employeeId === "Emp010" && this.password === "Work@25") {
+        this.showModal = true; 
         setTimeout(() => {
-          // Navigate to home after a short delay
-          this.$router.push("/ProfileView");
-        }, 2000); // Adjust the delay as needed
+          
+          this.$router.push("/profile");
+        }, 2000); 
       } else {
-        // Set an error message for invalid credentials
+        
         this.errorMessage = "Invalid username or password. Please try again.";
       }
     },
@@ -70,7 +70,7 @@ export default {
   justify-content: center;
   min-height: 100vh;
   background-color: #d3d3d3;
-  position: relative; /* Keeps the form in place */
+  position: relative; 
 }
 
 form {
@@ -81,7 +81,7 @@ form {
   text-align: center;
   width: 100%;
   max-width: 400px;
-  z-index: 1; /* Form stays behind the modal */
+  z-index: 1; 
 }
 
 .title {
@@ -135,21 +135,21 @@ input {
   text-decoration: underline;
 }
 
-/* Modal Overlay Styles */
+
 .modal-overlay {
-  position: fixed; /* Ensures it covers the viewport */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex; /* Flexbox for centering */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2; /* Above the form */
+  z-index: 2; 
 }
 
-/* Modal Styles */
+
 .modal {
   position: fixed;
   background: #ffffff;
@@ -161,13 +161,13 @@ input {
   text-align: center;
   transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px #00000033;
-  width: 250px; /* Smaller modal size */
+  width: 250px; 
 }
 
-/* Tick Icon Styles */
+
 .tick-icon {
   font-size: 2rem;
-  color: #4caf50; /* Green color for success */
+  color: #4caf50; 
   margin-top: 1rem;
 }
 .modal h2 {
@@ -194,4 +194,80 @@ input {
 .modal-button:hover {
   background-color: #007bff;
 }
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1024px) {
+  form {
+    max-width: 350px; /* Adjust max width for tablets */
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.25rem; /* Smaller title on tablets */
+  }
+
+  input {
+    padding: 8px; /* Smaller input fields on tablets */
+  }
+
+  .login-button {
+    padding: 12px; /* Button padding on tablets */
+  }
+
+  .forgot-password {
+    font-size: 0.875rem; /* Smaller font for forgot password link */
+  }
+}
+
+@media (max-width: 768px) {
+  form {
+    max-width: 300px; /* Adjust max width for smaller tablets/large phones */
+    padding: 1.2rem;
+  }
+
+  .title {
+    font-size: 1.2rem; /* Smaller title font */
+  }
+
+  input {
+    padding: 8px; /* Adjust input padding */
+  }
+
+  .login-button {
+    padding: 10px; /* Adjust button padding */
+  }
+
+  .forgot-password {
+    font-size: 0.875rem; /* Adjust forgot password font size */
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    max-width: 280px; /* Adjust form width for smartphones */
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.1rem; /* Even smaller title font for mobile */
+  }
+
+  input {
+    padding: 8px; /* Adjust input padding for mobile */
+  }
+
+  .login-button {
+    padding: 10px; /* Adjust button padding for mobile */
+  }
+
+  .forgot-password {
+    font-size: 0.8rem; /* Adjust font size for small screens */
+  }
+
+  .modal {
+    width: 200px; /* Adjust modal size for mobile */
+  }
+}
+
 </style>

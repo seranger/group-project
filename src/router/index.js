@@ -4,10 +4,9 @@ import Employee from '@/components/Employee.vue'
 import Admin from '@/components/Admin.vue'
 import Home from '@/components/Home.vue'
 import SidebarLayout from '@/components/SidebarLayout.vue'
-import WorkersView from '@/views/WorkersView.vue'
-import ProfileView from '@/views/ProfileView.vue'
-import RequestView from '@/views/RequestView.vue'
-import AboutCom from '@/components/AboutCom.vue'
+import WorkersView from '@/views/Workers.vue'
+import ProfileView from '@/views/Profile.vue'
+import RequestView from '@/views/Request.vue'
 
 
 const routes = [
@@ -17,57 +16,47 @@ const routes = [
     component: Welcome
   },
   {
-    path: '/SidebarLayout',
+    path: '/sidebarLayout',
     component: SidebarLayout,
     children: [
-      { path: '/WorkersView', component: WorkersView },
-      { path: '/Home', component: Home },
-      { path: '/RequestView', component: RequestView },
-      { path: '/AboutCom', component: AboutCom },
+      { path: '/workersview', component: WorkersView },
+      { path: '/home', component: Home },
+      { path: '/requestview', component: RequestView },
     ],
   },
   {
-    path: '/Home',
+    path: '/home',
     name: 'Home',
     component: Home
   },
   {
-    path: '/WorkersView',
-    name: 'WorkersView',
+    path: '/workers',
+    name: 'Workersview',
     component: WorkersView
 
   },
   {
-    path: '/RequestView',
-    name: 'RequestView',
+    path: '/request',
+    name: 'Requestview',
     component: RequestView
 
   },
   {
-    path: '/Admin',
+    path: '/admin',
     name: 'Admin',
     component: Admin
   },
   {
-    path: '/Employee',
+    path: '/employee',
     name: 'Employee',
     component: Employee
   },
   {
-    path: '/ProfileView',
-    name: 'ProfileView',
+    path: '/profile',
+    name: 'Profileview',
     component: ProfileView
 
-  },
-  {
-    path: '/AboutCom',
-    name: 'AboutCom',
-    component: AboutCom
-
-  },
-  
-  
-  
+  } 
 ]
 
 const router = createRouter({

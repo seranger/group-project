@@ -1,36 +1,13 @@
 <template>
-  <router-view />
+    <router-view />
 </template>
-
-<style>
-/* Mobile (default) */
-.container {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  gap: 1rem;
+<style scoped>
+/* Remove all margins and paddings globally */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-/* Tablet */
-@media (min-width: 600px) and (max-width: 1023px) {
-  .container {
-    flex-direction: column; /* Keep stacking vertically */
-  }
-}
-
-/* Laptop */
-@media (min-width: 1024px) and (max-width: 1440px) {
-  .container {
-    flex-direction: row; /* Align items horizontally on laptops */
-    gap: 2rem;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1441px) {
-  .container {
-    flex-direction: row;
-    gap: 3rem; /* Larger gap on desktop */
-  }
-}
-
 </style>
+
+

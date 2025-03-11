@@ -42,21 +42,21 @@ export default {
     return {
       Adminuser: "",
       password: "",
-      errorMessage: "", // To display validation errors
-      showModal: false, // To control the success modal visibility
+      errorMessage: "", 
+      showModal: false,
     };
   },
   methods: {
     validateLogin() {
-      // Check if username and password match the criteria
-      if (this.Adminuser === "s" && this.password === "1") {
-        this.showModal = true; // Show the success modal
+      
+      if (this.Adminuser === "Admin" && this.password === "Adm1n@23") {
+        this.showModal = true;
         setTimeout(() => {
-          // Navigate to home after a short delay
+          
           this.$router.push("/Home");
-        }, 2000); // Adjust the delay as needed
+        }, 2000); 
       } else {
-        // Set an error message for invalid credentials
+        
         this.errorMessage = "Invalid username or password. Please try again.";
       }
     },
@@ -71,7 +71,8 @@ export default {
   justify-content: center;
   min-height: 100vh;
   background-color: #d3d3d3;
-  position: relative; /* Keeps the form in place */
+  position: relative; 
+  padding: 1rem; /* Added padding for smaller devices */
 }
 
 form {
@@ -82,7 +83,7 @@ form {
   text-align: center;
   width: 100%;
   max-width: 400px;
-  z-index: 1; /* Form stays behind the modal */
+  z-index: 1; 
 }
 
 .title {
@@ -136,21 +137,19 @@ input {
   text-decoration: underline;
 }
 
-/* Modal Overlay Styles */
 .modal-overlay {
-  position: fixed; /* Ensures it covers the viewport */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex; /* Flexbox for centering */
+  background: rgba(0, 0, 0, 0.5); 
+  display: flex; 
   align-items: center;
   justify-content: center;
-  z-index: 2; /* Above the form */
+  z-index: 2; 
 }
 
-/* Modal Styles */
 .modal {
   position: fixed;
   background: #ffffff;
@@ -162,12 +161,12 @@ input {
   text-align: center;
   transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 250px; /* Smaller modal size */
+  width: 250px; 
 }
-/* Tick Icon Styles */
+
 .tick-icon {
   font-size: 3rem;
-  color: #4caf50; /* Green color for success */
+  color: #4caf50;
   margin-top: 1rem;
 }
 
@@ -194,5 +193,66 @@ input {
 
 .modal-button:hover {
   background-color: #218838;
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .input-group {
+    margin-bottom: 12px;
+  }
+
+  form {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .login-button {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .forgot-password {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .input-group {
+    margin-bottom: 10px;
+  }
+
+  form {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .login-button {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .forgot-password {
+    font-size: 0.8rem;
+  }
+
+  .modal {
+    width: 80%;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal {
+    width: 300px;
+  }
 }
 </style>

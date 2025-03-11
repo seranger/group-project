@@ -1,8 +1,6 @@
 <template>
     <div class="employee-attendance">
-        <h1>Employee Dashboard</h1>
-
-        <!-- Attendance and Performance Overview -->
+        <h1>Employee Management</h1>
         <div class="overview">
             <div class="attendance-tracker">
                 <h2>Attendance</h2>
@@ -36,7 +34,7 @@
             </div>
         </div>
 
-        <!-- Leave Requests Table -->
+        
         <div class="leave-requests">
             <h2>Leave Requests</h2>
             <table>
@@ -77,15 +75,14 @@
 </template>
 
 <script>
-// The following code was provided by ChatGPT, an AI language model by OpenAI, during a conversation.
-// Import Chart.js library
+
 import { Chart } from 'chart.js';
 
 export default {
-    name: 'EmployeeAttendance',
+    name: 'RequestView',
     data() {
         return {
-            rawData: [],  // Fixed typo (rawata -> rawData)
+            rawData: [],
             attendanceEntries: [],
             leaveRequests: [],
         };
@@ -169,12 +166,16 @@ export default {
     padding: 20px;
     font-family: Arial, sans-serif;
     background: #ddd;
+    margin: 0 auto; /* Center the content with equal left and right margins */
+    max-width: 1200px; /* Set a maximum width for larger screens */
 }
 
 .overview {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+    flex-wrap: wrap; /* Allow wrapping of content */
+    gap: 20px; /* Space between items */
 }
 
 .attendance-tracker,
@@ -184,6 +185,7 @@ export default {
     background: #ffffff;
     border: 1px solid #000000;
     border-radius: 8px;
+    margin-bottom: 20px; /* Add space between the blocks */
 }
 
 .leave-requests {
@@ -191,12 +193,17 @@ export default {
     border: 1px solid #000000;
     background: #ffffff;
     border-radius: 8px;
+    overflow-x: auto; /* Allow horizontal scrolling */
+    margin-top: 20px;
 }
 
 .scrollable-table {
     max-height: 300px;
     overflow-y: auto;
+    overflow-x: auto; /* Allow horizontal scrolling for wide tables */
     border: 1px solid #ddd;
+    width: 100%;
+    margin-top: 15px; /* Add space between the table and buttons */
 }
 
 th, td {
@@ -212,15 +219,15 @@ th {
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 button {
     margin-right: 5px;
 }
 
-/* Button styling */
 .approve-btn {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     color: #000000;
     border: none;
     border-radius: 10px;
@@ -229,7 +236,7 @@ button {
 }
 
 .deny-btn {
-    background-color: #FF5722; /* Red */
+    background-color: #FF5722; 
     color: #000000;
     border: none;
     border-radius: 10px;
@@ -237,14 +244,94 @@ button {
     cursor: pointer;
 }
 
-/* Row highlight based on attendance status */
 .present {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     color: white;
 }
 
 .absent {
-    background-color: #FF5722; /* Red */
+    background-color: #FF5722;
     color: white;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    .employee-attendance {
+        padding: 20px;
+    }
+
+    .overview {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .attendance-tracker,
+    .performance-tracker {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .leave-requests {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .overview {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .attendance-tracker,
+    .performance-tracker {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .leave-requests {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .scrollable-table {
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .employee-attendance {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .overview {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .attendance-tracker,
+    .performance-tracker {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .leave-requests {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .approve-btn, .deny-btn {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .scrollable-table {
+        max-height: 150px;
+        overflow-x: auto; /* Allow horizontal scrolling on small screens */
+    }
 }
 </style>
